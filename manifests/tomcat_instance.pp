@@ -106,6 +106,7 @@ define dspace::tomcat_instance ($package       = $dspace::tomcat_package,
       # (We cannot tweak the Tomcat run-as user while it is running)
       exec { 'Stop default Tomcat temporarily':
         command => "service ${service} stop",
+	path =>  [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
         # Must run before making any permission changes to Tomcat
         before  => [File_line["Update Tomcat to run as ${owner}"], File_line['Update Tomcat run options'], File[$catalina_base]]
       }
@@ -178,6 +179,7 @@ define dspace::tomcat_instance ($package       = $dspace::tomcat_package,
       # Stop Tomcat
       exec { 'Stop Tomcat':
         command => "service ${service} stop",
+	path =>  [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
         onlyif  => "/usr/bin/test -x /etc/init.d/${service}",
       }
 

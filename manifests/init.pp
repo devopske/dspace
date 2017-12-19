@@ -40,14 +40,14 @@
 #
 class dspace(
   $java_version       = '8',
-  $owner              = 'dspace',
-  $group              = $owner,
+  $owner              = undef,
+  $group              = undef,
   $src_dir            = "/home/${owner}/dspace-src",
   $install_dir        = "/home/${owner}/dspace",
   $installer_dir_name = 'dspace-installer',
   $git_repo           = 'https://github.com/DSpace/DSpace.git',
-  $git_branch         = 'master',
-  $mvn_params         = '',
+  $git_branch         = 'dspace-5_x',
+  $mvn_params         = '-Denv=custom',
   # PostgreSQL DB Settings (optional)
   $postgresql_version = '9.5',
   $db_name            = 'dspace',
@@ -59,7 +59,7 @@ class dspace(
   $db_locale          = 'en_US.UTF-8',
   # Tomcat Settings (optional)
   $tomcat_package     = 'tomcat8',
-  $tomcat_port        = 8080,
+  $tomcat_port        = undef,
   $tomcat_ajp_port    = undef,
   $catalina_home      = "/usr/share/${tomcat_package}",
   $catalina_base      = "/var/lib/${tomcat_package}",

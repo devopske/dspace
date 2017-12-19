@@ -61,10 +61,10 @@ define dspace::install ($owner             = $dspace::owner,
 
     # ensure that the install_dir exists, and has proper permissions
     file { "${install_dir}":
-        ensure => "directory",
-        owner  => $owner,
-        group  => $group,
-        mode   => 0700,
+       ensure => "directory",
+      owner  => $owner,
+     group  => $group,
+    mode   => '0700',
     }
 
 ->
@@ -77,7 +77,7 @@ define dspace::install ($owner             = $dspace::owner,
         ensure => directory,
         owner  => $owner,
         group  => $group,
-        mode   => 0700,
+        mode   => '0700',
     }
 
 ->
@@ -85,18 +85,21 @@ define dspace::install ($owner             = $dspace::owner,
     # can return either 0 or 1, both are OK
     # return 1 = warning about adding the fingerprint is thrown, this is a good thing, we want this
     # return 0 = everything worked fine, the fingerprint is already configured
-    exec { "Adding the fingerprint for GitHub so we can connect to it":
-        command   => "ssh -T -oStrictHostKeyChecking=no git@github.com",
-        returns   => [0,1],
-        user      => $owner,
-        logoutput => true,
-    }
+#    exec { "Adding the fingerprint for GitHub so we can connect to it":
+ #       command   => "ssh -vT -oStrictHostKeyChecking=no git@github.com",
+  #      path =>  [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
+#    command   => "ssh -vT git@github.com",
+   #     returns   => [0,1],
+    #    user      => $owner,
+     #   logoutput => true,
+    #}
 
-->
+#->
 
     exec { "Cloning DSpace source code into ${src_dir}":
-        command   => "git init && git remote add origin ${git_repo} && git fetch --all && git checkout -B master origin/master",
-        creates   => "${src_dir}/.git",
+        command   => "git init && git remote add origin ${git_repo} && git fetch --all && git checkout -B dspace-5_x origin/dspace-5_x",
+        path =>  [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
+	creates   => "${src_dir}/.git",
         user      => $owner,
         cwd       => $src_dir, # run command from this directory
         logoutput => true,
@@ -112,6 +115,7 @@ define dspace::install ($owner             = $dspace::owner,
     # Checkout the specified branch
     exec { "Checkout branch ${git_branch}" :
        command => "git checkout ${git_branch}",
+       path =>  [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
        cwd     => $src_dir, # run command from this directory
        user    => $owner,
        # Only perform this checkout if the branch EXISTS and it is NOT currently checked out (if checked out it will have '*' next to it in the branch listing)
@@ -127,7 +131,7 @@ define dspace::install ($owner             = $dspace::owner,
      ensure  => file,
      owner   => $owner,
      group   => $group,
-     mode    => 0644,
+     mode    => '0644',
      content => template("dspace/custom.properties.erb"),
    }
 
@@ -141,7 +145,7 @@ define dspace::install ($owner             = $dspace::owner,
        ensure  => file,
        owner   => $owner,
        group   => $group,
-       mode    => 0644,
+       mode    => '0644',
        source  => $local_config_source,
        require => Exec["Checkout branch ${git_branch}"],
        before  => Exec["Build DSpace installer in ${src_dir}"],
@@ -153,7 +157,7 @@ define dspace::install ($owner             = $dspace::owner,
        ensure  => file,
        owner   => $owner,
        group   => $group,
-       mode    => 0644,
+       mode    => '0644',
        content => template("dspace/local.cfg.erb"),
        require => Exec["Checkout branch ${git_branch}"],
        before  => Exec["Build DSpace installer in ${src_dir}"],
@@ -166,6 +170,7 @@ define dspace::install ($owner             = $dspace::owner,
    # (NOTE: by default, $mvn_params='-Denv=custom', which tells Maven to use the custom.properties file created above)
    exec { "Build DSpace installer in ${src_dir}":
      command   => "mvn package ${mvn_params}",
+     path =>  [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
      cwd       => "${src_dir}", # Run command from this directory
      user      => $owner,
      subscribe => File["${src_dir}/dspace/config/local.cfg"], # If local.cfg changes, rebuild
@@ -178,7 +183,9 @@ define dspace::install ($owner             = $dspace::owner,
    # Install DSpace (via Ant)
    exec { "Install DSpace to ${install_dir}":
      # If DSpace installed, this is an update. Otherwise a fresh_install
-     command   => "if [ -f ${install_dir}/bin/dspace ]; then ant update; else ant fresh_install; fi",
+     #command   => "if [ -f ${install_dir}/bin/dspace ]; then ant update; else ant fresh_install; fi",
+     command  => "ant fresh_install",
+     path =>  [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
      provider  => shell,   # Run as a shell command
      cwd       => $ant_installer_path,    # Run command from this directory
      user      => $owner,
@@ -187,15 +194,15 @@ define dspace::install ($owner             = $dspace::owner,
    }
 
    # Create initial administrator (if specified)
-   if $admin_email and $admin_passwd and $admin_firstname and $admin_lastname and $admin_language
+ if $admin_email and $admin_passwd and $admin_firstname and $admin_lastname and $admin_language
    {
      exec { "Create DSpace Administrator":
        command   => "${install_dir}/bin/dspace create-administrator -e ${admin_email} -f ${admin_firstname} -l ${admin_lastname} -p ${admin_passwd} -c ${admin_language}",
        cwd       => $install_dir,
        user      => $owner,
        logoutput => true,
-       require   => Exec["Install DSpace to ${install_dir}"],
-     }
-   }
+       require   => Exec["Install DSpace to ${install_dir}"],     
 
+}
+   }
 }
