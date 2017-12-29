@@ -169,7 +169,7 @@ define dspace::install ($owner             = $dspace::owner,
    # Build DSpace installer.
    # (NOTE: by default, $mvn_params='-Denv=custom', which tells Maven to use the custom.properties file created above)
    exec { "Build DSpace installer in ${src_dir}":
-     command   => "mvn package ${mvn_params}",
+     command   => "mvn package -Denv=custom",
      path =>  [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
      cwd       => "${src_dir}", # Run command from this directory
      user      => $owner,
