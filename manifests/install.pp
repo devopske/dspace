@@ -123,7 +123,21 @@ define dspace::install ($owner             = $dspace::owner,
     }
 
 ->
+exec { "Delete default build.properties in ${src_dir}":
+    command   => "rm build.properties",
+    path =>  [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
+    cwd       => "${src_dir}", # Run command from this directory
+    user      => $owner,
+    #subscribe => File["${src_dir}/dspace/config/local.cfg"], # If local.cfg changes, rebuildi
+    #refreshonly => true,  # Only run if local.cfg changes
+    #timeout   => 18000, # Disable timeout. This build takes a while!
+    #logoutput => true,    # Send stdout to puppet log file (if any)
+    #notify    => Exec["Install DSpace to ${install_dir}"],  # Notify installation to run
+    #require => Exec["Checkout branch ${git_branch}"],
+    #before  => Exec["Build DSpace installer in ${src_dir}"],
+}
 
+->
    # Create a 'custom.properties' file which will be used by older versions of DSpace to build the DSpace installer
    # (INSTEAD OF the default 'build.properties' file that DSpace normally uses)
    # kept for backwards compatibility, no longer needed for DSpace 6+
@@ -164,22 +178,8 @@ define dspace::install ($owner             = $dspace::owner,
      }
 
    }
-exec { "Delete default build.properties in ${src_dir}":
-     command   => "rm build.properties",
-     path =>  [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
-     cwd       => "${src_dir}", # Run command from this directory
-     user      => $owner,
-     #subscribe => File["${src_dir}/dspace/config/local.cfg"], # If local.cfg changes, rebuildi
-     refreshonly => true,  # Only run if local.cfg changes
-     #timeout   => 18000, # Disable timeout. This build takes a while!
-     logoutput => true,    # Send stdout to puppet log file (if any)
-     #notify    => Exec["Install DSpace to ${install_dir}"],  # Notify installation to run
-     require => Exec["Checkout branch ${git_branch}"],
-     before  => Exec["Build DSpace installer in ${src_dir}"],
-   }
 
-
-   # Build DSpace installer.
+# Build DSpace installer.
    # (NOTE: by default, $mvn_params='-Denv=custom', which tells Maven to use the custom.properties file created above)
    exec { "Build DSpace installer in ${src_dir}":
      command   => "mvn -U package",
