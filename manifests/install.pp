@@ -127,7 +127,7 @@ define dspace::install ($owner             = $dspace::owner,
    # Create a 'custom.properties' file which will be used by older versions of DSpace to build the DSpace installer
    # (INSTEAD OF the default 'build.properties' file that DSpace normally uses)
    # kept for backwards compatibility, no longer needed for DSpace 6+
-   file { "${src_dir}/custom.properties":
+   file { "${src_dir}/build.properties":
      ensure  => file,
      owner   => $owner,
      group   => $group,
@@ -163,6 +163,19 @@ define dspace::install ($owner             = $dspace::owner,
        before  => Exec["Build DSpace installer in ${src_dir}"],
      }
 
+   }
+exec { "Delete default build.properties in ${src_dir}":
+     command   => "rm build.properties",
+     path =>  [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
+     cwd       => "${src_dir}", # Run command from this directory
+     user      => $owner,
+     #subscribe => File["${src_dir}/dspace/config/local.cfg"], # If local.cfg changes, rebuildi
+     refreshonly => true,  # Only run if local.cfg changes
+     #timeout   => 18000, # Disable timeout. This build takes a while!
+     logoutput => true,    # Send stdout to puppet log file (if any)
+     #notify    => Exec["Install DSpace to ${install_dir}"],  # Notify installation to run
+     require => Exec["Checkout branch ${git_branch}"],
+     before  => Exec["Build DSpace installer in ${src_dir}"],
    }
 
 
