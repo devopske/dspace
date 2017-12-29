@@ -123,6 +123,7 @@ define dspace::install ($owner             = $dspace::owner,
     }
 
 ->
+
 exec { "Delete default build.properties in ${src_dir}":
     command   => "rm build.properties",
     path =>  [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
@@ -133,8 +134,8 @@ exec { "Delete default build.properties in ${src_dir}":
     #timeout   => 18000, # Disable timeout. This build takes a while!
     #logoutput => true,    # Send stdout to puppet log file (if any)
     #notify    => Exec["Install DSpace to ${install_dir}"],  # Notify installation to run
-    #require => Exec["Checkout branch ${git_branch}"],
-    #before  => Exec["Build DSpace installer in ${src_dir}"],
+    require => Exec["Checkout branch ${git_branch}"],
+    before  => Exec["Build DSpace installer in ${src_dir}"],
 }
 
 ->
@@ -147,7 +148,9 @@ exec { "Delete default build.properties in ${src_dir}":
      group   => $group,
      mode    => '0644',
      content => template("dspace/custom.properties.erb"),
-   }
+     require => Exec["Checkout branch ${git_branch}"],
+     before  => Exec["Build DSpace installer in ${src_dir}"],
+  }
 
 
 
@@ -179,16 +182,17 @@ exec { "Delete default build.properties in ${src_dir}":
 
    }
 
-# Build DSpace installer.
+
+   # Build DSpace installer.
    # (NOTE: by default, $mvn_params='-Denv=custom', which tells Maven to use the custom.properties file created above)
    exec { "Build DSpace installer in ${src_dir}":
-     command   => "mvn -U package",
+     command   => "mvn package",
      path =>  [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
      cwd       => "${src_dir}", # Run command from this directory
      user      => $owner,
-     subscribe => File["${src_dir}/dspace/config/local.cfg"], # If local.cfg changes, rebuild
+     subscribe => File["${src_dir}/dspace/config/local.cfg"], # If local.cfg changes, rebuildi
      refreshonly => true,  # Only run if local.cfg changes
-     timeout   => 0, # Disable timeout. This build takes a while!
+     timeout   => 18000, # Disable timeout. This build takes a while!
      logoutput => true,    # Send stdout to puppet log file (if any)
      notify    => Exec["Install DSpace to ${install_dir}"],  # Notify installation to run
    }
