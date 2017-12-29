@@ -47,7 +47,7 @@ class dspace(
   $installer_dir_name = 'dspace-installer',
   $git_repo           = 'https://github.com/DSpace/DSpace.git',
   $git_branch         = 'dspace-5_x',
-  $mvn_params         = '-Denv=custom',
+  $mvn_params         = undef,
   # PostgreSQL DB Settings (optional)
   $postgresql_version = undef,
   $db_name            = undef,
