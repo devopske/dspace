@@ -182,7 +182,7 @@ exec { "Delete default build.properties in ${src_dir}":
    # Build DSpace installer.
    # (NOTE: by default, $mvn_params='-Denv=custom', which tells Maven to use the custom.properties file created above)
    exec { "Build DSpace installer in ${src_dir}":
-     command   => "mvn package -Denv=custom",
+     command   => "mvn -U package",
      path =>  [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
      cwd       => "${src_dir}", # Run command from this directory
      user      => $owner,
