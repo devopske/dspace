@@ -28,7 +28,7 @@ dspace::owner { '$owner':
   sudoer => true,  # Whether to add acct as a sudoer
 }
 
-dspace::init {"$site":}
+include dspace
 
 $dspacedirect_sites = hiera('DSpaceDirect_Sites',{})
 #$dspacedirect_sites = hiera_hash('DSpaceDirect_Sites', {})   # First read the site configs under "DSpaceDirect_Sites" (default to doing nothing, {}, if nothing is defined under "DSpaceDirect_Sites") 
