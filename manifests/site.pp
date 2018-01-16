@@ -15,18 +15,21 @@ hiera_include('classes')
 #create_resources('dspace', $dspacedirect_sites)   # Then, create a new "dspace::site" for each one
 
 
-class { 'dspace':
+class { 'dspace':}
 
-$dspacedirect_sites = hiera('DSpaceDirect_Sites',{})
-#$dspacedirect_sites = hiera_hash('DSpaceDirect_Sites', {})   # First read the site configs under "DSpaceDirect_Sites" (default to doing nothing, {}, if nothing is defined under "DSpaceDirect_Sites") 
-create_resources('dspace', $dspacedirect_sites)   # Then, create a new "dspace::site" for each one
-
-# for debug output on the puppet master
-  notice("--------------------------------------------------------------------------")
-  notice("------------This is to notify us if there is something:$site_name---------")
-  notice("--------------------------------------------------------------------------")
-
+define dspace::site(
+    $site_name,
+    $site,
+    $version,
+    $owner, 
+    $db_name, 
+    $db_owner,   
+    $db_owner_passwd,
+    $tomcat_port){ 
 }
+
+$dspacedirect_sites = hiera('DSpaceDirect_Sites', {})   # First read the site configs under "DSpaceDirect_Sites" (default to doing nothing, {}, if nothing is defined under "DSpaceDirect_Sites") 
+create_resources('dspace::site’, $dspacedirect_sites)   # Then, create a new "dspace::site" for each one
 
 
 #owner
