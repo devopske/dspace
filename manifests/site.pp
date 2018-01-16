@@ -12,13 +12,13 @@ Class['server'] -> Class['dspace']
 # Create a hash from Hiera Data with variable values
 #$dspacedirect_sites = hiera('DSpaceDirect_Sites',{})
 #$dspacedirect_sites = hiera_hash('DSpaceDirect_Sites', {})   # First read the site configs under "DSpaceDirect_Sites" (default to doing nothing, {}, if nothing is defined under "DSpaceDirect_Sites") 
-#create_resources('dspace', $dspacedirect_sites)   # Then, create a new "dspace::site" for each one
+##create_resources('dspace', $dspacedirect_sites)   # Then, create a new "dspace::site" for each one
 
 
 class { 'dspace':
 #$dspacedirect_sites = hiera('DSpaceDirect_Sites',{})
 #$dspacedirect_sites = hiera_hash('DSpaceDirect_Sites', {})   # First read the site configs under "DSpaceDirect_Sites" (default to doing nothing, {}, if nothing is defined under "DSpaceDirect_Sites") 
-#create_resources('dspace', $dspacedirect_sites)   # Then, create a new "dspace::site" for each one
+##create_resources('dspace', $dspacedirect_sites)   # Then, create a new "dspace::site" for each one
 }
 
 #owner
