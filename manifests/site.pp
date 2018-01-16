@@ -46,10 +46,7 @@ create_resources('dspace::site', $dspacedirect_sites)   # Then, create a new "ds
 
 ####dspace1 install
 dspace::install { "/home/${dspace::owner}/dspace" :
-# for debug output on the puppet master
-  notify {"--------------------------------------------------------------------------":}
-  notify {"------------This is to notify us if there is something:$site_name---------":}
-  notify {"--------------------------------------------------------------------------":}
+
 }
 
 }
