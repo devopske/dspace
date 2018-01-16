@@ -10,9 +10,9 @@ Class['server'] -> Class['dspace']
 # These next few lines load the Hiera data configs and creates a new "dspace::site"
 # for every site defined under "DSpaceDirect_Sites" in the 'hieradata/[fqdn].yaml' file.
 # Create a hash from Hiera Data with variable values
-$dspacedirect_sites = hiera('DSpaceDirect_Sites',{})
+#$dspacedirect_sites = hiera('DSpaceDirect_Sites',{})
 #$dspacedirect_sites = hiera_hash('DSpaceDirect_Sites', {})   # First read the site configs under "DSpaceDirect_Sites" (default to doing nothing, {}, if nothing is defined under "DSpaceDirect_Sites") 
-create_resources('dspace', $dspacedirect_sites)   # Then, create a new "dspace::site" for each one
+#create_resources('dspace', $dspacedirect_sites)   # Then, create a new "dspace::site" for each one
 
 
 class { 'dspace':
@@ -28,6 +28,11 @@ dspace::owner { '$owner':
   sudoer => true,  # Whether to add acct as a sudoer
 }
 
+dspace::site {"$site":}
+
+$dspacedirect_sites = hiera('DSpaceDirect_Sites',{})
+#$dspacedirect_sites = hiera_hash('DSpaceDirect_Sites', {})   # First read the site configs under "DSpaceDirect_Sites" (default to doing nothing, {}, if nothing is defined under "DSpaceDirect_Sites") 
+create_resources('dspace::', $dspacedirect_sites)   # Then, create a new "dspace::site" for each one
 #dspace1 install
 
 dspace::install { "/home/${dspace::owner}/dspace" :
