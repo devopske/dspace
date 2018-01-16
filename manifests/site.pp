@@ -39,7 +39,9 @@ $dspacedirect_sites = hiera('DSpaceDirect_Sites',{})
 create_resources('dspace::site', $dspacedirect_sites)   # Then, create a new "dspace::site" for each one
 
 # for debug output on the puppet master
-  notice("This is to notify us if there is something:$site_name")
+  notice("--------------------------------------------------------------------------")
+  notice("------------This is to notify us if there is something:$site_name---------")
+  notice("--------------------------------------------------------------------------")
   
 
 ####dspace1 install
