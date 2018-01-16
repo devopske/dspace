@@ -73,16 +73,7 @@ class dspace(
   $handle_prefix      = '123456789',
 )
 {
-    define dspace::site(
-    $site_name,
-    $site,
-    $version,
-    $owner, 
-    $db_name, 
-    $db_owner,   
-    $db_owner_passwd,
-    $tomcat_port)
-    
+
     
     
     # Default to requiring all packages be installed
