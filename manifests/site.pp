@@ -15,7 +15,7 @@ hiera_include('classes')
 #create_resources('dspace', $dspacedirect_sites)   # Then, create a new "dspace::site" for each one
 
 
-class { 'dspace':}
+#class { 'dspace':}
 
 #owner
 dspace::owner { '$owner':
