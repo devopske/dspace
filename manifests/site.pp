@@ -15,18 +15,10 @@ hiera_include('classes')
 #create_resources('dspace', $dspacedirect_sites)   # Then, create a new "dspace::site" for each one
 
 
-#class { 'dspace':
+class { 'dspace':
 #$dspacedirect_sites = hiera('DSpaceDirect_Sites',{})
 #$dspacedirect_sites = hiera_hash('DSpaceDirect_Sites', {})   # First read the site configs under "DSpaceDirect_Sites" (default to doing nothing, {}, if nothing is defined under "DSpaceDirect_Sites") 
 ##create_resources('dspace', $dspacedirect_sites)   # Then, create a new "dspace::site" for each one
-#}
-
-#owner
-dspace::owner { '$owner':
-  #gid    => 'dspace1',  # Primary OS group name / ID
-  groups => 'root', # Additional OS groups
-  sudoer => true,  # Whether to add acct as a sudoer
-}
 
    define dspace::site(
     $site_name,
@@ -37,6 +29,15 @@ dspace::owner { '$owner':
     $db_owner,   
     $db_owner_passwd,
     $tomcat_port)
+}
+
+#owner
+dspace::owner { '$owner':
+  #gid    => 'dspace1',  # Primary OS group name / ID
+  groups => 'root', # Additional OS groups
+  sudoer => true,  # Whether to add acct as a sudoer
+}
+
 
 $dspacedirect_sites = hiera('DSpaceDirect_Sites',{})
 #$dspacedirect_sites = hiera_hash('DSpaceDirect_Sites', {})   # First read the site configs under "DSpaceDirect_Sites" (default to doing nothing, {}, if nothing is defined under "DSpaceDirect_Sites") 
