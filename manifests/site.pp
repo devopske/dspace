@@ -1,7 +1,7 @@
 hiera_include('classes')
 
 # DSpace needs prerequisites before it can be installed, so 'server' class needs loading first
-Class['server'] -> Class['dspace']
+#Class['server'] -> Class['dspace']
 
 ##############################
 # Setup all DSpaceDirect sites 
