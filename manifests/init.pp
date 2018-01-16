@@ -73,7 +73,17 @@ class dspace(
   $handle_prefix      = '123456789',
 )
 {
-    dspace::site{"site":}
+    define dspace::site{
+    $site_name,
+    $site,
+    $version,
+    $owner, 
+    $db_name, 
+    $db_owner,   
+    $db_owner_passwd,
+    $tomcat_port
+    
+    }
     
     
     
