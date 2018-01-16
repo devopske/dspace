@@ -15,21 +15,7 @@ hiera_include('classes')
 #create_resources('dspace', $dspacedirect_sites)   # Then, create a new "dspace::site" for each one
 
 
-class { 'dspace':
-#$dspacedirect_sites = hiera('DSpaceDirect_Sites',{})
-#$dspacedirect_sites = hiera_hash('DSpaceDirect_Sites', {})   # First read the site configs under "DSpaceDirect_Sites" (default to doing nothing, {}, if nothing is defined under "DSpaceDirect_Sites") 
-##create_resources('dspace', $dspacedirect_sites)   # Then, create a new "dspace::site" for each one
-
-   define dspace::site(
-    $site_name,
-    $site,
-    $version,
-    $owner, 
-    $db_name, 
-    $db_owner,   
-    $db_owner_passwd,
-    $tomcat_port){}
-}
+class { 'dspace':}
 
 #owner
 dspace::owner { '$owner':
@@ -38,14 +24,23 @@ dspace::owner { '$owner':
   sudoer => true,  # Whether to add acct as a sudoer
 }
 
+define dspace::site(
+    $site_name,
+    $site,
+    $version,
+    $owner, 
+    $db_name, 
+    $db_owner,   
+    $db_owner_passwd,
+    $tomcat_port){
 
 $dspacedirect_sites = hiera('DSpaceDirect_Sites',{})
 #$dspacedirect_sites = hiera_hash('DSpaceDirect_Sites', {})   # First read the site configs under "DSpaceDirect_Sites" (default to doing nothing, {}, if nothing is defined under "DSpaceDirect_Sites") 
 create_resources('dspace::site', $dspacedirect_sites)   # Then, create a new "dspace::site" for each one
-#dspace1 install
 
+
+####dspace1 install
 dspace::install { "/home/${dspace::owner}/dspace" :
-#$dspacedirect_sites = hiera('DSpaceDirect_Sites',{})
-#$dspacedirect_sites = hiera_hash('DSpaceDirect_Sites', {})   # First read the site configs under "DSpaceDirect_Sites" (default to doing nothing, {}, if nothing is defined under "DSpaceDirect_Sites") 
-#create_resources('dspace', $dspacedirect_sites)   # Then, create a new "dspace::site" for each one
+}
+
 }
