@@ -73,6 +73,10 @@ class dspace(
   $handle_prefix      = '123456789',
 )
 {
+    dspace::site{"site":}
+    
+    
+    
     # Default to requiring all packages be installed
     Package {
       ensure => installed,
