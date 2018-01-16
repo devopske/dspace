@@ -28,7 +28,7 @@ class { 'dspace':
     $db_name, 
     $db_owner,   
     $db_owner_passwd,
-    $tomcat_port)
+    $tomcat_port){}
 }
 
 #owner
