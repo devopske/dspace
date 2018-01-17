@@ -42,36 +42,10 @@ class dspace {
  define site(
   $java_version       = '8',
   $owner              = undef,
-  $group              = undef,
-  $src_dir            = "/home/${owner}/dspace-src",
-  $install_dir        = "/home/${owner}/dspace",
-  $installer_dir_name = 'dspace-installer',
-  $git_repo           = 'https://github.com/DSpace/DSpace.git',
-  $git_branch         = 'dspace-5_x',
-  $mvn_params         = undef,
-  # PostgreSQL DB Settings (optional)
-  $postgresql_version = undef,
   $db_name            = undef,
-  $db_admin           = undef,
-  $db_admin_passwd    = undef,
   $db_owner           = undef,
   $db_owner_passwd    = undef,
-  $db_port            = 5432,
-  $db_locale          = 'en_US.UTF-8',
-  # Tomcat Settings (optional)
-  $tomcat_package     = 'tomcat8',
   $tomcat_port        = undef,
-  $tomcat_ajp_port    = undef,
-  $catalina_home      = "/usr/share/${tomcat_package}",
-  $catalina_base      = "/var/lib/${tomcat_package}",
-  $catalina_opts      = '-Djava.awt.headless=true -Dfile.encoding=UTF-8 -Xmx2048m -Xms1024m -XX:MaxPermSize=256m -XX:+UseConcMarkSweepGC',
-  # DSpace Admin User Account settings (optional)
-  $admin_firstname    = undef,
-  $admin_lastname     = undef,
-  $admin_email        = undef,
-  $admin_passwd       = undef,
-  $admin_language     = undef,
-  $handle_prefix      = '123456789',
 )
 {
     
