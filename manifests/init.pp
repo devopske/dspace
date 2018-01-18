@@ -38,6 +38,7 @@
 # Sample Usage:
 # include dspace
 #
+# hiera_include('classes')
 class dspace {
  define site(
   $java_version       = '8',
@@ -99,6 +100,13 @@ class dspace {
       unless  => "test \$(readlink default-java) = '${java_name}'",
       path    => "/usr/bin:/usr/sbin:/bin",
     }
+    
+    
+  $dspacedirect_sites = hiera('DSpaceDirect_Sites', {})   # First read the site configs under "DSpaceDirect_Sites" (default to doing nothing, {}, if nothing is defined under "DSpaceDirect_Sites") 
+  create_resources('dspace::site', $dspacedirect_sites)   # Then, create a new "dspace::site" for each one
+    
+    
+    
   }
   
   
