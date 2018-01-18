@@ -38,7 +38,7 @@
 # Sample Usage:
 # include dspace
 #
-# hiera_include('classes')
+hiera_include('classes')
 class dspace {
  define site(
   $java_version       = '8',
