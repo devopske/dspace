@@ -108,6 +108,17 @@ class dspace {
     
     
   }
-  
+#owner
+dspace::owner { '$owner':
+  #gid    => 'dspace1',  # Primary OS group name / ID
+  groups => 'root', # Additional OS groups
+  sudoer => true,  # Whether to add acct as a sudoer
+}
+
+
+####dspace1 install
+dspace::install { "/home/${dspace::owner}/dspace" :
+
+}  
   
 }
