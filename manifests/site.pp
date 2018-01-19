@@ -14,9 +14,9 @@ hiera_include('classes')
 #class { 'dspace':}
 
 define dspace::site(
-    $site_name,
-    $site,
-    $version,
+    #$site_name,
+    #$site,
+    $java_version,
     $owner, 
     $db_name, 
     $db_owner,   
