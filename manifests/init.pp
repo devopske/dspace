@@ -39,8 +39,7 @@
 # include dspace
 #
 #hiera_include('classes')
-class dspace {
-define dspace::site(
+class dspace (
   $java_version       = '8',
   $owner              = undef,
   $db_name            = undef,
@@ -50,8 +49,8 @@ define dspace::site(
 )
 {
 #$dspacedirect_sites = hiera('DSpaceDirect_Sites', {})   # First read the site configs under "DSpaceDirect_Sites" (default to doing nothing, {}, if nothing is defined under "DSpaceDirect_Sites") 
-##create_resources('dspace::site', $dspacedirect_sites)   # Then, create a new "dspace::site" for each one
-}
+##create_resources('dspace::install', $dspacedirect_sites)   # Then, create a new "dspace::site" for each one
+
 
     
     # Default to requiring all packages be installed
