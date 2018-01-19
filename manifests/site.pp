@@ -49,11 +49,11 @@ exec { "Add JDK 8 PPA Repository":
 ->
 
 # Tell puppet-server to install OpenJDK 8
-#class {'java':
-#  version => '8',
-#}
+###class {'java':
+###  version => '8',
+###}
 
-->
+###->
 
 # DSpace needs prerequisites before it can be installed, so 'server' class needs loading first
 #Class['dspace']
