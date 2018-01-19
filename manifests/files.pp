@@ -1,2 +1,2 @@
 $files = hiera_hash('files',{})
-create_resources ( 'file', $files )
+create_resources ( 'profile::file', $files )
