@@ -49,14 +49,14 @@ exec { "Add JDK 8 PPA Repository":
 ->
 
 # Tell puppet-server to install OpenJDK 8
-class {'java':
+#class {'java':
 #  version => '8',
-}
+#}
 
 ->
 
 # DSpace needs prerequisites before it can be installed, so 'server' class needs loading first
-Class['dspace']
+#Class['dspace']
 
 # Ensure the Apache Proxy / Proxy AJP modules are present & enabled
 # (DSpaceDirect will use these modules to forward requests from Apache to Tomcat)
@@ -78,8 +78,8 @@ group { "staff":
 # for every site defined under "User_Accts" in the 'hieradata/staff.yaml' file.
 # Concept borrowed from http://drewblessing.com/blog/-/blogs/puppet-hiera-implement-defined-resource-types-in-hiera
 
-$user_accts = hiera('User_Accts', {})         # First read the site configs under "User_Accts" (default to doing nothing, {}, if nothing is defined under "User_Accts")
-create_resources('server::user', $user_accts) # Then, create a new "server::user" for each account
+###$user_accts = hiera('User_Accts', {})         # First read the site configs under "User_Accts" (default to doing nothing, {}, if nothing is defined under "User_Accts")
+###create_resources('server::user', $user_accts) # Then, create a new "server::user" for each account
 
 # The above lines are the equivalent of having a separate "server::user" defined for EACH acct under "User_Accts" in the 
 # hieradata/staff.yaml file, similar to this:
