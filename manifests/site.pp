@@ -33,5 +33,5 @@ dspace::owner { '$owner':
 dspace::install { "/home/${dspace::owner}/dspace" :
 
 }
-}
+#}
 
