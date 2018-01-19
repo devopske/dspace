@@ -104,4 +104,18 @@ $dspacedirect_sites = hiera('DSpaceDirect_Sites', {})   # First read the site co
 create_resources('dspace::install', $dspacedirect_sites)   # Then, create a new "dspace::site" for each one
 
 
+#owner
+	dspace::owner { '$owner':
+	  #gid    => 'dspace1',  # Primary OS group name / ID
+	  groups => 'root', # Additional OS groups
+	  sudoer => true,  # Whether to add acct as a sudoer
+	}
 
+
+
+
+	####dspace1 install
+	dspace::install { "/home/${dspace::owner}/dspace" :
+
+
+	}
