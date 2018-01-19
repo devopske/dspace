@@ -47,7 +47,7 @@ class dspace
   $db_owner_passwd    = undef,
   $tomcat_port        = undef,
 )
-{}
+{
     # Default to requiring all packages be installed
     Package {
       ensure => installed,
@@ -99,6 +99,20 @@ class dspace
       path    => "/usr/bin:/usr/sbin:/bin",
     }
     
-    
+    #owner
+  dspace::owner { '$owner':
+  #gid    => 'dspace1',  # Primary OS group name / ID
+  groups => 'root', # Additional OS groups
+  sudoer => true,  # Whether to add acct as a sudoer
+  }
+
+
+   ##dspace1 install
+  dspace::install { "/home/${dspace::owner}/dspace" :
+
+  }
+  
+  }
+  
 }
   
