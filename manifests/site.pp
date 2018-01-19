@@ -11,9 +11,9 @@ hiera_include('classes')
 # for every site defined under "DSpaceDirect_Sites" in the 'hieradata/[fqdn].yaml' file.
 # Create a hash from Hiera Data with variable values
 
-#class { 'dspace':}
+class { 'dspace':
 
-dspace::site{ 
+#dspace::site{ 
 
 $dspacedirect_sites = hiera('DSpaceDirect_Sites', {})   # First read the site configs under "DSpaceDirect_Sites" (default to doing nothing, {}, if nothing is defined under "DSpaceDirect_Sites") 
 create_resources('dspace::site', $dspacedirect_sites)   # Then, create a new "dspace::site" for each one
