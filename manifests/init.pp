@@ -39,8 +39,7 @@
 # include dspace
 #
 #hiera_include('classes')
-class dspace {
- define site(
+class dspace(
   $java_version       = '8',
   $owner              = undef,
   $db_name            = undef,
