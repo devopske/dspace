@@ -3,6 +3,8 @@ class gu_misc {
   define mount_nfs_shares(
         $mount_point,
         $mount_device) {
+        
+        include stdlib
 
         file{ $mout_point: ensure => directory }
         mount { $mount_point:
