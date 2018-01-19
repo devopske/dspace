@@ -22,8 +22,8 @@ Class['dspace']
 ##notice(hiera('DSpaceDirect_Sites')['dspace1.dddke.net'])
 #}
 
-$dspacedirect_sites = hiera('DSpaceDirect_Sites', {})   # First read the site configs under "DSpaceDirect_Sites" (default to doing nothing, {}, if nothing is defined under "DSpaceDirect_Sites") 
-create_resources('dspace::site', $dspacedirect_sites)   # Then, create a new "dspace::site" for each one
+#$dspacedirect_sites = hiera('DSpaceDirect_Sites', {})   # First read the site configs under "DSpaceDirect_Sites" (default to doing nothing, {}, if nothing is defined under "DSpaceDirect_Sites") 
+create_resources('dspace::install', $dspacedirect_sites)   # Then, create a new "dspace::site" for each one
 
 #owner
 #dspace::owner { '$owner':
