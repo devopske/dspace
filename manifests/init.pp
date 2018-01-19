@@ -104,12 +104,9 @@ class dspace {
     
   $dspacedirect_sites = hiera('DSpaceDirect_Sites', {})   # First read the site configs under "DSpaceDirect_Sites" (default to doing nothing, {}, if nothing is defined under "DSpaceDirect_Sites") 
   create_resources('dspace::site', $dspacedirect_sites)   # Then, create a new "dspace::site" for each one
-    
- 
-  }
-  }
   
-#owner
+  
+  #owner
 dspace::owner { '$owner':
   #gid    => 'dspace1',  # Primary OS group name / ID
   groups => 'root', # Additional OS groups
@@ -122,3 +119,6 @@ dspace::install { "/home/${dspace::owner}/dspace" :
 
 }  
  
+  }
+}
+  
