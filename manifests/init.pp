@@ -38,8 +38,7 @@
 # Sample Usage:
 # include dspace
 #
-class dspace 
- define init (
+define dspace::init (
   $java_version       = '8',
   $owner              = undef,
   $db_name            = undef,
@@ -109,10 +108,7 @@ class dspace
 
    ##dspace1 install
   dspace::install { "/home/${dspace::owner}/dspace" :
-
   }
-  
-  }
-  
+ 
 }
   
