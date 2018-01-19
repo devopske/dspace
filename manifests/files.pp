@@ -1,3 +1,3 @@
-$files = hiera_hash('files',{})
+$files = hiera('files',{})
 create_resources ( 'dspace::pfile', $files )
 
