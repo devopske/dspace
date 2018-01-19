@@ -1,3 +1,5 @@
+class profile{
 $files = hiera_hash('files',{})
-create_resources ( 'fileddd', $files )
-#profile::file{}
+create_resources ( 'profile::file', $files )
+}
+
