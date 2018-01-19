@@ -12,7 +12,7 @@ hiera_include('classes')
 # Create a hash from Hiera Data with variable values
 
 #class { 'dspace':}
-#Class['dspace']
+Class['dspace']
 
 $dspacedirect_sites = hiera('DSpaceDirect_Sites', {})   # First read the site configs under "DSpaceDirect_Sites" (default to doing nothing,{}, if nothing is defined under "DSpaceDirect_Sites")
 notify { "The Hash values are: ${dspacedirect_sites}": }
