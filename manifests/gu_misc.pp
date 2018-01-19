@@ -1,6 +1,4 @@
-class gu_misc {
-
-  define mount_nfs_shares(
+define gu_misc::mount_nfs_shares(
         $mount_point,
         $mount_device) {
         
@@ -16,4 +14,3 @@ class gu_misc {
 
     create_resources('gu_misc::mount_nfs_shares', $nfs_mounts)
 
-}
