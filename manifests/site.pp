@@ -56,7 +56,7 @@ exec { "Add JDK 8 PPA Repository":
 ###->
 
 # DSpace needs prerequisites before it can be installed, so 'server' class needs loading first
-#Class['dspace']
+Class['dspace']
 
 # Ensure the Apache Proxy / Proxy AJP modules are present & enabled
 # (DSpaceDirect will use these modules to forward requests from Apache to Tomcat)
