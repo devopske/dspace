@@ -43,12 +43,12 @@ define dspace::setup (
   $db_name,
   $db_owner,
   $db_owner_passwd,
-  $tomcat_port,
+  $tomcat_port
 )
 {
     
   #owner
-  dspace::owner { '$owner':
+  dspace::owner { "$owner":
   #gid    => 'dspace1',  # Primary OS group name / ID
   groups => 'root', # Additional OS groups
   sudoer => true,  # Whether to add acct as a sudoer
