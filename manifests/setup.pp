@@ -1,4 +1,3 @@
-
 # Class: dspace
 #
 # This class does the following:
@@ -38,7 +37,7 @@
 # Sample Usage:
 # include dspace
 #
-define dspace::init (
+define dspace::setup (
   $java_version       = '8',
   $owner              = undef,
   $db_name            = undef,
