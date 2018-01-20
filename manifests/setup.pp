@@ -38,12 +38,12 @@
 # include dspace
 #
 define dspace::setup (
-  $java_version       = '8',
-  $owner              = undef,
-  $db_name            = undef,
-  $db_owner           = undef,
-  $db_owner_passwd    = undef,
-  $tomcat_port        = undef,
+  $java_version,
+  $owner,
+  $db_name,
+  $db_owner,
+  $db_owner_passwd,
+  $tomcat_port,
 )
 {
     
