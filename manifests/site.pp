@@ -16,5 +16,5 @@ Class['dspace']
 
 $dspacedirect_sites = hiera('DSpaceDirect_Sites',{})   # First read the site configs under "DSpaceDirect_Sites" (default to doing nothing,{}, if nothing is defined under "DSpaceDirect_Sites")
 notify { "The Hash values are: ${dspacedirect_sites}": }
-create_resources('dspace::init', $dspacedirect_sites)   # Then, create a new "dspace::site" for each one
+create_resources('dspace::setup', $dspacedirect_sites)   # Then, create a new "dspace::site" for each one
 
