@@ -56,7 +56,7 @@ define dspace::setup (
 
 
    ##dspace1 install
-  dspace::install { "/home/${dspace::owner}/dspace":
+  dspace::install { "/home/${owner}/dspace":
   }
  
 }
