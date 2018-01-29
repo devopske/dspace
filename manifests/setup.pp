@@ -87,7 +87,6 @@ define dspace::setup (
            source_url   => $source_url,
            user    => $username,
            #dir      => $tomcat_dir,
-           dir_mode => 0750,
            #webapps  => $tomcat_webapps,
          }
          
