@@ -47,16 +47,18 @@ define dspace::setup (
   $db_name,
   $db_owner,
   $db_owner_passwd,
+  $git_repo  = "git@github.com:duraspace/dspacedirect.git",
+  $git_src_tag = "dspace-${version}",
+  $source_url,
+  $group = $owner,
+  $url = $name,
   $tomcat_port,
   $tomcat_port = undef,
   $tomcat_shutdown_port = undef,
   $tomcat_ajp_port = undef,
-  $url = $name,
-  #$site_name            = "DSpaceDirect",
-  $group = $owner,
+  #$site_name = "DSpaceDirect",
   $tomcat_opts = "-server -Xms768M -Xmx1024M -XX:PermSize=96M -XX:MaxPermSize=192M -XX:+UseConcMarkSweepGC -XX:+CMSParallelRemarkEnabled -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/var/tmp/${username}-tomcat.hprof -Dfile.encoding=UTF-8",
-  $git_repo  = "git@github.com:duraspace/dspacedirect.git",
-  $git_src_tag = "dspace-${version}",
+
 )
 {
     
