@@ -81,7 +81,7 @@ define dspace::setup (
  # Create a new Tomcat instance owned by this user
          # (NOTE: Tomcat ports are defined in ~/setenv.sh below)
          tomcat::instance { $url :
-           ensure   => present,
+           #ensure   => present,
            catalina_home => $catalina_home,
            source_url   => $source_url,
            owner    => $username,
