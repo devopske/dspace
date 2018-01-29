@@ -41,6 +41,8 @@ define dspace::setup (
   $java_version,
   $owner,
   $git_branch,
+  $catalina_base,
+  $catalina_home,
   $db_name,
   $db_owner,
   $db_owner_passwd,
