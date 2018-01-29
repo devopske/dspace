@@ -45,6 +45,9 @@ define dspace::setup (
   $db_owner,
   $db_owner_passwd,
   $tomcat_port,
+  $tomcat_port = undef,
+  $tomcat_shutdown_port = undef,
+  $tomcat_ajp_port = undef,
   $url = $name,
   #$site_name            = "DSpaceDirect",
   $group = $owner,
@@ -74,6 +77,8 @@ define dspace::setup (
          # (NOTE: Tomcat ports are defined in ~/setenv.sh below)
          tomcat::instance { $url :
            ensure   => present,
+           catalina_home => $catalina_base,
+           source_url   => $source_url,
            owner    => $username,
            dir      => $tomcat_dir,
            dir_mode => 0750,
