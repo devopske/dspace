@@ -40,6 +40,7 @@
 define dspace::setup (
   $java_version,
   $owner,
+  $version,
   $git_branch,
   $catalina_base,
   $catalina_home,
