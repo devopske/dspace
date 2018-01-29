@@ -44,7 +44,13 @@ define dspace::setup (
   $db_name,
   $db_owner,
   $db_owner_passwd,
-  $tomcat_port
+  $tomcat_port,
+  $url = $name,
+  #$site_name            = "DSpaceDirect",
+  $group = $owner,
+  $tomcat_opts = "-server -Xms768M -Xmx1024M -XX:PermSize=96M -XX:MaxPermSize=192M -XX:+UseConcMarkSweepGC -XX:+CMSParallelRemarkEnabled -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/var/tmp/${username}-tomcat.hprof -Dfile.encoding=UTF-8",
+  $git_repo  = "git@github.com:duraspace/dspacedirect.git",
+  $git_src_tag = "dspace-${version}",
 )
 {
     
@@ -59,6 +65,22 @@ define dspace::setup (
    ##dspace1 install
   dspace::install { "/home/${owner}/dspace":
   }
+  
+  
+  ##########
+  # Setup Tomcat Instance
+  ##########
+ # Create a new Tomcat instance owned by this user
+         # (NOTE: Tomcat ports are defined in ~/setenv.sh below)
+         tomcat::instance { $url :
+           ensure   => present,
+           owner    => $username,
+           dir      => $tomcat_dir,
+           dir_mode => 0750,
+           #webapps  => $tomcat_webapps,
+         }
+         
+  
  
 }
   
