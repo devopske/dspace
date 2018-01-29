@@ -84,7 +84,7 @@ define dspace::setup (
            #ensure   => present,
            catalina_home => $catalina_home,
            source_url   => $source_url,
-           owner    => $username,
+           user    => $username,
            dir      => $tomcat_dir,
            dir_mode => 0750,
            #webapps  => $tomcat_webapps,
