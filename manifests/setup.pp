@@ -42,6 +42,7 @@ define dspace::setup (
   $owner,
   $version,
   $git_branch,
+  $dir_mode,
   $catalina_base,
   $catalina_home,
   $db_name,
