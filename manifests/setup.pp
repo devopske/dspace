@@ -117,8 +117,10 @@ define dspace::setup (
          tomcat::service { $username :
            service_ensure     => running,
            service_enable     => true,		# start service on boot
-           hasstatus  => true,		# service has a 'status' command
-           hasrestart => true,		# service has a 'restart' command
+           #hasstatus  => true,		# service has a 'status' command
+           #hasrestart => true,		# service has a 'restart' command
+           use_jsvc => false,
+           use_init => true,
            require    => File["/etc/init.d/${username}"],
          }
       
