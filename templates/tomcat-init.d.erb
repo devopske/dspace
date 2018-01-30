@@ -9,10 +9,10 @@
 ### END INIT INFO
 PATH=/sbin:/bin:/usr/sbin:/usr/bin
 start() {
- sh ${catalina_base}/bin/startup.sh
+ sh ${CATALINA_HOME}/bin/startup.sh
 }
 stop() {
- sh ${catalina_base}/bin/shutdown.sh
+ sh ${CATALINA_HOME}/bin/shutdown.sh
 }
 case $1 in
   start|stop) $1;;
