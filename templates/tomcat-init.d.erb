@@ -7,6 +7,11 @@
 # Default-Stop:    0 1 6
 # Short-Description: Start/Stop Tomcat server
 ### END INIT INFO
+
+CATALINA_BASE=<%= @_catalina_base %>
+CATALINA_HOME=<%= @_catalina_home %>
+JAVA_HOME=<%= @java_home %>
+
 PATH=/sbin:/bin:/usr/sbin:/usr/bin
 start() {
  sh ${CATALINA_HOME}/bin/startup.sh
