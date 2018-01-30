@@ -37,7 +37,7 @@
 # Sample Usage:
 # include dspace
 #
-include tomcat
+#include tomcat
 define dspace::setup (
   $java_version,
   $owner,
