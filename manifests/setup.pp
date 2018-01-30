@@ -99,7 +99,7 @@ define dspace::setup (
            mode    => 0755,
            owner   => $username,
            group   => $username,
-           content => template("templates/tomcat-init.d.erb"),
+           content => template("dspace/tomcat-init.d.erb"),
            require => File["/home/${username}/setenv.sh"],
          }
 notify { "username is: ${username}":}
