@@ -53,6 +53,7 @@ define dspace::setup (
   $git_src_tag = "dspace-${version}",
   $source_url,
   $group = $owner,
+  $service_name = undef,
   $url = $name,
   $tomcat_port,
   $tomcat_port = undef,
