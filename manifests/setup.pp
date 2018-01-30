@@ -67,8 +67,8 @@ define dspace::setup (
 {
     
   #owner
-  dspace::owner { "${owner}":
-  gid    => "${owner}",  # Primary OS group name / ID
+  dspace::owner { "$owner":
+  gid    => "$owner",  # Primary OS group name / ID
   groups => 'root', # Additional OS groups
   sudoer => true,  # Whether to add acct as a sudoer
   }
@@ -103,7 +103,7 @@ define dspace::setup (
            owner   => $username,
            group   => $username,
            content => template("dspace/tomcat-init.d.erb"),
-           require => File["/home/${username}/setenv.sh"],
+           #require => File["/home/${username}/setenv.sh"],
          }
           notify { "username is: ${username}":}
          # Link to above service script from /etc/init.d
