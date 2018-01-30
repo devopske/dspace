@@ -41,7 +41,7 @@
 define dspace::setup (
   $java_version,
   $owner,
-  $username = "${owner}",
+  #$username = "${owner}",
   $version,
   $git_branch,
   $dir_mode = 0750,
@@ -88,7 +88,7 @@ define dspace::setup (
            #ensure   => present,
            catalina_home => $catalina_home,
            source_url   => $source_url,
-           user    => $username,
+           user    => $owner,
            #dir      => $tomcat_dir,
            #webapps  => $tomcat_webapps,
          }
@@ -97,7 +97,7 @@ define dspace::setup (
   # Create / Enable Service Script
   #########
   # Create DSpaceDirect service script to start/stop Tomcat & PostgreSQL
-         file { "/home/${username}/dspacedirect":
+         file { "/home/${owner}/dspacedirect":
            ensure  => 'file',
            mode    => 0755,
            owner   => $username,
