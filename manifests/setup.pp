@@ -89,7 +89,38 @@ define dspace::setup (
            #dir      => $tomcat_dir,
            #webapps  => $tomcat_webapps,
          }
-         
+  
+  #########
+  # Create / Enable Service Script
+  #########
+  # Create DSpaceDirect service script to start/stop Tomcat & PostgreSQL
+         file { "/home/${username}/dspacedirect":
+           ensure  => 'file',
+           mode    => 0755,
+           owner   => $username,
+           group   => $username,
+           content => template("templates/tomcat-init.d.erb"),
+           require => File["/home/${username}/setenv.sh"],
+         }
+notify { "username is: ${username}":}
+         # Link to above service script from /etc/init.d
+         file { "/etc/init.d/${username}":
+           ensure  => 'link',
+           target  => "/home/${username}/dspacedirect",
+           owner   => root,
+           group   => root,
+           require => File["/home/${username}/dspacedirect"],
+         }
+
+         # Enable this new service script and ensure it starts on boot
+         tomcat::service { $username :
+           ensure     => running,
+           enable     => true,		# start service on boot
+           hasstatus  => true,		# service has a 'status' command
+           hasrestart => true,		# service has a 'restart' command
+           require    => File["/etc/init.d/${username}"],
+         }
+      
   
  
 }
