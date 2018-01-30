@@ -51,7 +51,6 @@ define dspace::setup (
   $db_owner_passwd,
   $git_repo  = "git@github.com:duraspace/dspacedirect.git",
   $git_src_tag = "dspace-${version}",
-  $ensure = undef,
   $source_url,
   $group = $owner,
   $url = $name,
@@ -104,7 +103,7 @@ define dspace::setup (
            content => template("dspace/tomcat-init.d.erb"),
            require => File["/home/${username}/setenv.sh"],
          }
-notify { "username is: ${username}":}
+          notify { "username is: ${username}":}
          # Link to above service script from /etc/init.d
          file { "/etc/init.d/${username}":
            ensure  => 'link',
@@ -117,7 +116,7 @@ notify { "username is: ${username}":}
          # Enable this new service script and ensure it starts on boot
          tomcat::service { $username :
            service_ensure     => running,
-           enable     => true,		# start service on boot
+           service_enable     => true,		# start service on boot
            hasstatus  => true,		# service has a 'status' command
            hasrestart => true,		# service has a 'restart' command
            require    => File["/etc/init.d/${username}"],
