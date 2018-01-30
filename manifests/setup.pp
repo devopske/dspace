@@ -116,7 +116,7 @@ define dspace::setup (
          }
 
          # Enable this new service script and ensure it starts on boot
-         tomcat::service { "${username}" :
+         tomcat::service { "$username" :
            service_ensure     => running,
            service_enable     => true,		# start service on boot
            #hasstatus  => true,		# service has a 'status' command
