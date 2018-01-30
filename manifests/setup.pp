@@ -77,7 +77,7 @@ define dspace::setup (
   dspace::install { "/home/${owner}/dspace":
   }
   
-  
+ } 
   ##########
   # Setup Tomcat Instance
   ##########
@@ -125,5 +125,5 @@ notify { "username is: ${username}":}
       
   
  
-}
+#}
   
