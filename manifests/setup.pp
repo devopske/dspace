@@ -116,7 +116,7 @@ notify { "username is: ${username}":}
 
          # Enable this new service script and ensure it starts on boot
          tomcat::service { $username :
-           ensure     => running,
+           ensure     => 'running',
            enable     => true,		# start service on boot
            hasstatus  => true,		# service has a 'status' command
            hasrestart => true,		# service has a 'restart' command
