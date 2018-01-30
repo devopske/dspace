@@ -67,8 +67,8 @@ define dspace::setup (
 {
     
   #owner
-  dspace::owner { "$owner":
-  gid    => "$owner",  # Primary OS group name / ID
+  dspace::owner { "${owner}":
+  gid    => '$owner',  # Primary OS group name / ID
   groups => 'root', # Additional OS groups
   sudoer => true,  # Whether to add acct as a sudoer
   }
@@ -88,7 +88,7 @@ define dspace::setup (
            #ensure   => present,
            catalina_home => $catalina_home,
            source_url   => $source_url,
-           user    => $username,
+           user    => '$username',
            #dir      => $tomcat_dir,
            #webapps  => $tomcat_webapps,
          }
@@ -100,8 +100,8 @@ define dspace::setup (
          file { "/home/${username}/dspacedirect":
            ensure  => 'file',
            mode    => 0755,
-           owner   => $username,
-           group   => $username,
+           owner   => '$username',
+           group   => '$username',
            content => template("dspace/tomcat-init.d.erb"),
            #require => File["/home/${username}/setenv.sh"],
          }
