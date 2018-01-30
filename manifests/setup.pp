@@ -41,7 +41,7 @@
 define dspace::setup (
   $java_version,
   $owner,
-  $username = $owner,
+  $username = "${owner}",
   $version,
   $git_branch,
   $dir_mode = 0750,
