@@ -120,7 +120,7 @@ define dspace::setup (
          service { "${username}" :
            ensure     => running,
            enable     => true,		# start service on boot
-           hasstatus  => true,		# service has a 'status' command
+           hasstatus  => false,		# service has a 'status' command
            hasrestart => true,		# service has a 'restart' command
            #use_jsvc => false,
            #use_init => true,
