@@ -100,8 +100,8 @@ define dspace::setup (
          file { "/home/${username}/dspacedirect":
            ensure  => 'file',
            mode    => 0755,
-           owner   => '${username}',
-           group   => '${username}',
+           owner   => '$username',
+           group   => '$username',
            content => template("dspace/tomcat-init.d.erb"),
            #require => File["/home/${username}/setenv.sh"],
          }
@@ -116,14 +116,14 @@ define dspace::setup (
          }
 
          # Enable this new service script and ensure it starts on boot
-         service { "${username}" :
+         service { "$username" :
            ensure     => running,
            enable     => true,		# start service on boot
            hasstatus  => true,		# service has a 'status' command
            hasrestart => true,		# service has a 'restart' command
            #use_jsvc => false,
            #use_init => true,
-           name => '${username}',
+           name => '$username',
            require    => File["/etc/init.d/${username}"],
          }
       
