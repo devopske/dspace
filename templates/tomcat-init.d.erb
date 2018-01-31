@@ -14,10 +14,10 @@ JAVA_HOME=<%= @java_home %>
 
 PATH=/sbin:/bin:/usr/sbin:/usr/bin
 start() {
- sh ${CATALINA_HOME}/bin/startup.sh
+ sh $CATALINA_HOME/bin/startup.sh
 }
 stop() {
- sh ${CATALINA_HOME}/bin/shutdown.sh
+ sh $CATALINA_HOME/bin/shutdown.sh
 }
 case $1 in
   start|stop) $1;;
