@@ -117,13 +117,13 @@ define dspace::setup (
 
          # Enable this new service script and ensure it starts on boot
          service { "$username" :
-           service_ensure     => running,
-           service_enable     => true,		# start service on boot
-           #hasstatus  => true,		# service has a 'status' command
-           #hasrestart => true,		# service has a 'restart' command
-           use_jsvc => false,
-           use_init => true,
-           service_name => '$username',
+           ensure     => running,
+           enable     => true,		# start service on boot
+           hasstatus  => true,		# service has a 'status' command
+           hasrestart => true,		# service has a 'restart' command
+           #use_jsvc => false,
+           #use_init => true,
+           name => '$username',
            require    => File["/etc/init.d/${username}"],
          }
       
