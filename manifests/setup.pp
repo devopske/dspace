@@ -123,7 +123,7 @@ define dspace::setup (
            hasstatus  => false,		# service has a 'status' command
            hasrestart => true,		# service has a 'restart' command
            #use_jsvc => false,
-           use_init => true,
+           #use_init => true,
            name => $username,
            require    => File["/etc/init.d/${username}"],
          }
