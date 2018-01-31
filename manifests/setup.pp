@@ -68,7 +68,7 @@ define dspace::setup (
     
   #owner
   dspace::owner { "${owner}":
-  gid    => '$owner',  # Primary OS group name / ID
+  gid    => '${owner}',  # Primary OS group name / ID
   groups => 'root', # Additional OS groups
   sudoer => true,  # Whether to add acct as a sudoer
   }
@@ -85,10 +85,10 @@ define dspace::setup (
  # Create a new Tomcat instance owned by this user
          # (NOTE: Tomcat ports are defined in ~/setenv.sh below)
          tomcat::instance { $url :
-           #ensure   => present,
+           ensure   => present,
            catalina_home => $catalina_home,
            source_url   => $source_url,
-           user    => '$username',
+           user    => '${username}',
            #dir      => $tomcat_dir,
            #webapps  => $tomcat_webapps,
          }
@@ -100,8 +100,8 @@ define dspace::setup (
          file { "/home/${username}/dspacedirect":
            ensure  => 'file',
            mode    => 0755,
-           owner   => '$username',
-           group   => '$username',
+           owner   => '${username}',
+           group   => '${username}',
            content => template("dspace/tomcat-init.d.erb"),
            #require => File["/home/${username}/setenv.sh"],
          }
@@ -116,14 +116,14 @@ define dspace::setup (
          }
 
          # Enable this new service script and ensure it starts on boot
-         service { "$username" :
+         service { "${username}" :
            ensure     => running,
            enable     => true,		# start service on boot
            hasstatus  => true,		# service has a 'status' command
            hasrestart => true,		# service has a 'restart' command
            #use_jsvc => false,
            #use_init => true,
-           name => '$username',
+           name => '${username}',
            require    => File["/etc/init.d/${username}"],
          }
       
