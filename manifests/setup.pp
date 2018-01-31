@@ -101,8 +101,8 @@ define dspace::setup (
          file { "/home/${username}/dspacedirect":
            ensure  => 'file',
            mode    => 0755,
-           owner   => "${username}",
-           group   => "${username}",
+           owner   => '$username',
+           group   => '$username',
            content => template("dspace/tomcat-init.d.erb"),
            #require => File["/home/${username}/setenv.sh"],
          }
