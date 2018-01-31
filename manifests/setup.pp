@@ -42,7 +42,7 @@ define dspace::setup (
   $java_version,
   $owner,
   $username,
-  $src_dir = "/home/${username}",
+  $src_dir= "/home/${owner}/dspace-src",
   $version,
   $git_branch,
   $dir_mode = 0750,
