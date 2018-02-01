@@ -104,12 +104,12 @@ define dspace::setup (
            mode    => 0755,
            owner   => $username,
            group   => $username,
-           content => template("dspace/tomcat-init.d.erb"),
+           content => template("dspace/tomcat-systemd.erb"),
            #require => File["/home/${username}/setenv.sh"],
          }
           notify { "username is: ${username}":}
          # Link to above service script from /etc/init.d
-         file { "/etc/init.d/${username}":
+         file { "/etc/systemd/system/${username}.service":
            ensure  => 'link',
            target  => "/home/${username}/dspacedirect",
            owner   => root,
@@ -126,7 +126,7 @@ define dspace::setup (
            #use_jsvc => false,
            #use_init => true,
            name => $username,
-           require    => File["/etc/init.d/${username}"],
+           require    => File["/etc/systemd/system/${username}.service"],
          }
       
   
