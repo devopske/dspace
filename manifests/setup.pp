@@ -63,6 +63,13 @@ define dspace::setup (
   $tomcat_ajp_port = undef,
   #$site_name = "DSpaceDirect",
   $tomcat_opts = "-server -Xms768M -Xmx1024M -XX:PermSize=96M -XX:MaxPermSize=192M -XX:+UseConcMarkSweepGC -XX:+CMSParallelRemarkEnabled -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/var/tmp/${username}-tomcat.hprof -Dfile.encoding=UTF-8",
+  $tomcat_webapps       = {
+                           "/home/${username}/dspace/webapps/xmlui"   => { path => 'ROOT' },
+                           "/home/${username}/dspace/webapps/oai"     => { path => 'oai' },
+                           "/home/${username}/dspace/webapps/rest"    => { path => 'rest' },
+                           "/home/${username}/dspace/webapps/solr"    => { path => 'solr' },
+                           "/home/${username}/dspace/webapps/sword"   => { path => 'sword' },
+                           "/home/${username}/dspace/webapps/swordv2" => { path => 'swordv2' },
 
 )
 {
@@ -87,12 +94,12 @@ define dspace::setup (
  # Create a new Tomcat instance owned by this user
          # (NOTE: Tomcat ports are defined in ~/setenv.sh below)
          tomcat::instance { $url :
-           #service_ensure   => present,
+           service_ensure   => present,
            catalina_home => $catalina_home,
            source_url   => $source_url,
-           #user    => "${username}",
+           user    => "${username}",
            #dir      => $tomcat_dir,
-           #webapps  => $tomcat_webapps,
+           webapps  => $tomcat_webapps,
          }
   
   #########
