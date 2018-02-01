@@ -140,6 +140,7 @@ define dspace::setup (
          # Enable this new service script and ensure it starts on boot
          tomcat::service { "${username}":
             service_name  => $username,
+            service_enable     => true,
             catalina_home => $catalina_home,
             catalina_base => $catalina_base,
             use_init      => true,
