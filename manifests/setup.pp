@@ -70,6 +70,7 @@ define dspace::setup (
                            "/home/${username}/dspace/webapps/solr"    => { path => 'solr' },
                            "/home/${username}/dspace/webapps/sword"   => { path => 'sword' },
                            "/home/${username}/dspace/webapps/swordv2" => { path => 'swordv2' },
+                           }
 
 )
 {
