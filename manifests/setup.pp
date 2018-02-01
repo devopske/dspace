@@ -141,7 +141,7 @@ define dspace::setup (
          tomcat::service { "${username}":
             service_name  => $username,
             catalina_home => $catalina_home,
-            catalina_base => $catalina_base,
+            catalina_base => $catalina_jase,
             use_init      => true,
         }
       
