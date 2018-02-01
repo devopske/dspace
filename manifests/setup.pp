@@ -99,7 +99,8 @@ define dspace::setup (
   # Create / Enable Service Script
   #########
   # Create DSpaceDirect service script to start/stop Tomcat & PostgreSQL
-         file { "/home/${username}/dspacedirect":
+     /* ==
+      file { "/home/${username}/dspacedirect":
            ensure  => 'file',
            mode    => 0755,
            owner   => $username,
@@ -115,6 +116,17 @@ define dspace::setup (
            owner   => root,
            group   => root,
            require => File["/home/${username}/dspacedirect"],
+         }
+         =====*/
+         
+         
+         #####################
+         file { "/etc/systemd/system/${username}.service":
+            ensure  => 'file',
+            owner   => root,
+            group   => root,
+            content => template("dspace/tomcat-systemd.erb"),
+            mode    => 0644,
          }
 
          #####################
@@ -140,7 +152,7 @@ define dspace::setup (
          # Enable this new service script and ensure it starts on boot
          tomcat::service { "${username}":
             service_name  => $username,
-            service_enable     => true,
+            #service_enable     => true,
             catalina_home => $catalina_home,
             catalina_base => $catalina_base,
             use_init      => true,
