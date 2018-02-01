@@ -117,17 +117,33 @@ define dspace::setup (
            require => File["/home/${username}/dspacedirect"],
          }
 
+         #####################
+         # . USING INITD .   #
+         # . UBUNTU 14.04    #
+         #####################
          # Enable this new service script and ensure it starts on boot
-         service { "${username}" :
-           ensure     => running,
-           enable     => true,		# start service on boot
-           hasstatus  => false,		# service has a 'status' command
-           hasrestart => true,		# service has a 'restart' command
-           #use_jsvc => false,
-           #use_init => true,
-           name => $username,
-           require    => File["/etc/systemd/system/${username}.service"],
-         }
+         #service { "${username}" :
+         #  ensure     => running,
+         #  enable     => true,		# start service on boot
+         #  hasstatus  => false,		# service has a 'status' command
+         #  hasrestart => true,		# service has a 'restart' command
+         #  #use_jsvc => false,
+         #  #use_init => true,
+         #  name => $username,
+         #  require    => File["/etc/systemd/system/${username}.service"],
+         #}
+         
+         #####################
+         # . USING SYSTEMD . #
+         # . UBUNTU 16.04    #
+         #####################
+         # Enable this new service script and ensure it starts on boot
+         tomcat::service { "${username}":
+            service_name  => $username,
+            catalina_home => $catalina_home,
+            catalina_base => $catalina_hase,
+            use_init      => true,
+        }
       
   
  
