@@ -76,11 +76,11 @@ define dspace::setup (
                            "/home/${username}/dspace/webapps/swordv2" => { path => 'swordv2' },
                            }
  # DSpace Admin Account settings
-  admin_firstname    => undef,
-  admin_lastname     => undef,
-  admin_email        => undef,
-  admin_passwd       => undef,
-  admin_language     => 'en',
+  admin_firstname = undef,
+  admin_lastname = undef,
+  admin_email = undef,
+  admin_passwd = undef,
+  admin_language = 'en',
 
 )
 {
