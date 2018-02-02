@@ -1,0 +1,67 @@
+#!/bin/sh
+
+# setenv.sh - Initialize DSpace User Account Environment
+#
+# This script is used to initialize the environment for a specific DSpace Account.
+# It is automatically loaded by the following sources:
+#   * Tomcat (via the ~/tomcat/bin/setenv.sh file) - To initialize Tomcat ports/settings
+#   * User's ~/.profile - To initialize command-line environment (env)
+#
+# Each User Account should define each of the following environment settings.
+#
+# You will need to fill out all port values below (for PostgreSQL and Tomcat).
+#
+# Most other settings should not need modification.
+
+#------------------
+# DSPACE SETTINGS
+#------------------
+# DSpace installation location (should always be $HOME/dspace/)
+export DSPACE_HOME="$HOME/dspace/"
+
+#------------------
+# POSTGRES SETTINGS
+#------------------
+# Port that PostgreSQL cluster is running on
+#export PGPORT=<%=@db_port%>
+
+#------------------
+# TOMCAT SETTINGS
+#------------------
+# Main (startup) port that Tomcat responds on
+export CATALINA_MAIN_PORT=<%=@tomcat_port%>
+
+# Shutdown port for Tomcat
+export CATALINA_SHUTDOWN_PORT=<%=@tomcat_shutdown_port%>
+
+# AJP Port for Tomcat, which accepts forwarded requests from Apache
+export CATALINA_AJP_PORT=<%=@tomcat_ajp_port%>
+
+# Use the centrally installed Tomcat binaries to start/stop Tomcat
+export CATALINA_HOME=<%=@catalina_home%>
+
+# Tomcat instance directory (should always be ~/tomcat/)
+export CATALINA_BASE=<%=@catalina_home%>
+
+# Tomcat startup options (baseline memory settings for a DSpace instance)
+export CATALINA_OPTS="<%=@tomcat_opts%>"
+
+#--------------------
+# JAVA / JVM SETTINGS
+#--------------------
+# Initialize Java settings (used both in Tomcat and on Java Command-line)
+JAVA_OPTS="-Ddspace.dir=$DSPACE_HOME -Dpsql.port=$PGPORT"
+
+# Initialize Tomcat specific port settings. These variables are used by Tomcat's server.xml file.
+# (NOTE: We must set these port variables via JAVA_OPTS, as CATALINA_OPTS is not used during Tomcat shutdown.)
+JAVA_OPTS="$JAVA_OPTS -Dtomcat.main.port=$CATALINA_MAIN_PORT"
+JAVA_OPTS="$JAVA_OPTS -Dtomcat.shutdown.port=$CATALINA_SHUTDOWN_PORT"
+JAVA_OPTS="$JAVA_OPTS -Dtomcat.ajp.port=$CATALINA_AJP_PORT"
+export JAVA_OPTS
+
+#---------------------
+# MAVEN BUILD SETTINGS
+#---------------------
+# Initialize Maven Settings to ALWAYS build DSpace using the 'dspacedirect.properties' file (instead of default 'build.properties' file)
+# This ensures that you can simply run 'mvn package' from the command-line and Maven will default to using 'dspacedirect.properties'.
+#export MAVEN_OPTS="-Denv=dspacedirect"
