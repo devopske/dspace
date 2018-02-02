@@ -48,6 +48,9 @@ define dspace::setup (
   $dir_mode = 0750,
   $catalina_base,
   $catalina_home,
+  $tomcat_port = undef,
+  $tomcat_shutdown_port = undef,
+  $tomcat_ajp_port = undef,
   $db_name,
   $db_owner,
   $db_owner_passwd,
@@ -89,11 +92,13 @@ define dspace::setup (
   }
   
  #} 
-  ##########
+  
+
+  #########################
   # Setup Tomcat Instance
-  ##########
- # Create a new Tomcat instance owned by this user
-         # (NOTE: Tomcat ports are defined in ~/setenv.sh below)
+  ##########################
+  #Create a new Tomcat instance owned by this user
+  # (NOTE: Tomcat ports are defined in ~/setenv.sh below)
          tomcat::instance { $url :
            #ensure   => present,
            catalina_home => $catalina_home,
@@ -102,10 +107,38 @@ define dspace::setup (
            #dir      => $tomcat_dir,
            #webapps  => $tomcat_webapps,
          }
+         
+  ######################################################
+  #  SET/Change tomcat's server and HTTP/AJP connectors
+  #######################################################
+  tomcat::config::server { "${owner}":
+   catalina_base => $catalina_base,
+   port          => $tomcat_shutdown_port,
+  }
+
+  tomcat::config::server::connector { "${owner}-http":
+   catalina_base         => $catalina_base,
+   port                  => $tomcat_port,
+   protocol              => 'HTTP/1.1',
+   purge_connectors      => true,
+   additional_attributes => {
+    'redirectPort' => '8443'
+   },
+  }
+
+  tomcat::config::server::connector { "${owner}-ajp":
+   catalina_base         => $catalina_base,
+   port                  => $tomcat_ajp_port,
+   protocol              => 'AJP/1.3',
+   purge_connectors      => true,
+   additional_attributes => {
+    'redirectPort' => '8443'
+  },
+  }
   
-  #########
+  #################################
   # Create / Enable Service Script
-  #########
+  ##################################
   # Create DSpaceDirect service script to start/stop Tomcat & PostgreSQL
      /* ==
       file { "/home/${username}/dspacedirect":
