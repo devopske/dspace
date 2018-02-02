@@ -100,7 +100,7 @@ define dspace::setup (
            source_url   => $source_url,
            user    => "${username}",
            #dir      => $tomcat_dir,
-           webapps  => $tomcat_webapps,
+           #webapps  => $tomcat_webapps,
          }
   
   #########
