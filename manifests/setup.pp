@@ -98,7 +98,7 @@ define dspace::setup (
            #ensure   => present,
            catalina_home => $catalina_home,
            source_url   => $source_url,
-           user    => "${username}",
+           #user    => "${username}",
            #dir      => $tomcat_dir,
            #webapps  => $tomcat_webapps,
          }
