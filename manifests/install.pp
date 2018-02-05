@@ -97,7 +97,7 @@ define dspace::install ($owner             = $dspace::owner,
 #->
 
     exec { "Cloning DSpace source code into ${src_dir}":
-        command   => "git init && git remote add origin ${git_repo} && git fetch --all && git checkout -B ${git_branch} origin/${git_branch}",
+        command   => "git init && git remote add origin ${git_repo} && git fetch --all && git checkout -B dspace-5_x origin/dspace-5_x",
         path =>  [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
 	creates   => "${src_dir}/.git",
         user      => $owner,
