@@ -41,7 +41,7 @@
 define dspace::setup (
   $java_version,
   $db_endpoint= "dspacepuppet.crmamqzflhj7.eu-west-1.rds.amazonaws.com",
-  PGPASSWORD="${db_passwd}"
+  PGPASSWORD="${db_passwd}",
   $owner,
   $username,
   $src_dir= "/home/${owner}/dspace-src",
