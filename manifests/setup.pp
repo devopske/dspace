@@ -39,7 +39,7 @@
 #
 #include tomcat
 define dspace::setup (
-  $site_name,
+  $site_name = undef,
   $java_version,
   $db_endpoint= "dspacepuppet.crmamqzflhj7.eu-west-1.rds.amazonaws.com",
   $PGPASSWORD="${db_passwd}",
@@ -64,7 +64,6 @@ define dspace::setup (
   $group = $owner,
   $service_name = undef,
   $url = $name,
-  $tomcat_port,
   $tomcat_port = undef,
   $tomcat_shutdown_port = undef,
   $tomcat_ajp_port = undef,
