@@ -175,8 +175,8 @@ define dspace::setup (
            #ssl_cert_file    => $ssl_cert_file,
            #ssl_key_file     => $ssl_key_file,
            #ssl_chain_file   => $ssl_chain_file,
-           shibboleth       => $shibboleth,
-           shibboleth_appId => $shibboleth_appId,
+           #shibboleth       => $shibboleth,
+           #shibboleth_appId => $shibboleth_appId,
          }
          
          
