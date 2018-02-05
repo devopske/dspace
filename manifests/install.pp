@@ -88,7 +88,7 @@ define dspace::install ($owner             = $dspace::owner,
 
 ->
 exec { 'create database':
- command => 'echo "${db_passwd}"| psql --host=${db_endpoint} --port=5432  --username=${db_user} --password --dbname dspacepuppet   --command="CREATE DATABASE ${db_name}"',
+ command => 'echo "${db_passwd}"| psql --host=${db_endpoint} --port=5432 --dbname dspacepuppet  --username=${db_user} --password --command="CREATE DATABASE ${db_name}"',
  path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
  }
  ->
