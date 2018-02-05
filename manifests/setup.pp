@@ -108,7 +108,9 @@ define dspace::setup (
  }
 
  
-   ##dspace1 install
+  #####################
+  #   DSPACE install .#
+  #####################
   dspace::install { "/home/${owner}/dspace":
   src_dir    => $src_dir,
   git_branch => $git_branch,
@@ -158,6 +160,25 @@ define dspace::setup (
     'redirectPort' => '8443'
   },
   }
+  
+  ####################################
+  # Setup Apache Redirect to Tomcat  #
+  ####################################
+
+         # Create a new Apache vhost (site) which will redirect (via AJP)
+         # requests to the Tomcat instance created above.
+         # Also installs/configures mod_shib when Shibboleth is enabled. 
+         apache::site { $title :
+           ensure           => present,
+           ajp_port         => $tomcat_ajp_port,
+           #ssl_cert_file    => $ssl_cert_file,
+           #ssl_key_file     => $ssl_key_file,
+           #ssl_chain_file   => $ssl_chain_file,
+           shibboleth       => $shibboleth,
+           shibboleth_appId => $shibboleth_appId,
+         }
+         
+         
   
   #################################
   # Create / Enable Service Script
