@@ -39,7 +39,7 @@
 #
 #include tomcat
 define dspace::setup (
-  $site_name = undef,
+  $site_name = "${title}",
   $java_version,
   $db_endpoint= "dspacepuppet.crmamqzflhj7.eu-west-1.rds.amazonaws.com",
   $PGPASSWORD="${db_passwd}",
@@ -164,7 +164,7 @@ define dspace::setup (
   ####################################
   # Setup Apache Redirect to Tomcat  #
   ####################################
-
+  notify { "The Hash values are: ${site_name}": }
          # Create a new Apache vhost (site) which will redirect (via AJP)
          # requests to the Tomcat instance created above.
          # Also installs/configures mod_shib when Shibboleth is enabled. 
