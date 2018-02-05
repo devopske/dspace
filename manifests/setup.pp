@@ -40,6 +40,7 @@
 #include tomcat
 define dspace::setup (
   $java_version,
+  $db_endpoint= "dspacepuppet.crmamqzflhj7.eu-west-1.rds.amazonaws.com",
   $owner,
   $username,
   $src_dir= "/home/${owner}/dspace-src",
@@ -85,14 +86,25 @@ define dspace::setup (
 )
 {
     
-  #owner
+  ######################
+  # . Acccount owner . #
+  #######################
   dspace::owner { "${owner}":
   gid    => $owner,  # Primary OS group name / ID
   groups => [root,$username], # Additional OS groups
   sudoer => true,  # Whether to add acct as a sudoer
   }
+  
+  ##########################
+  # . CREATE DATABASE .    #
+  ##########################
+  
+ exec { 'create database':
+ command => 'echo "${db_passwd}"| psql --host=${db_endpoint} --port=5432  --username=${db_user} --password     --command="CREATE DATABASE ${db_name}"',
+ path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
+ }
 
-
+ 
    ##dspace1 install
   dspace::install { "/home/${owner}/dspace":
   src_dir    => $src_dir,
