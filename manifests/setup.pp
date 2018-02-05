@@ -100,8 +100,9 @@ define dspace::setup (
   ##########################
   
  exec { 'create database':
- command => 'echo "${db_passwd}"| psql --host=${db_endpoint} --port=5432  --username=${db_user} --password     --command="CREATE DATABASE ${db_name}"',
- path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
+   user   => "dspacepuppet",
+   command => 'echo "${db_passwd}"| psql --host=${db_endpoint} --port=5432  --username=${db_user} --password     --command="CREATE DATABASE ${db_name}"',
+   path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
  }
 
  
