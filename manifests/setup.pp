@@ -67,6 +67,7 @@ define dspace::setup (
   $tomcat_port = undef,
   $tomcat_shutdown_port = undef,
   $tomcat_ajp_port = undef,
+  $ajp_port = undef,
   #$site_name = "DSpaceDirect",
   $tomcat_opts = "-server -Xms768M -Xmx1024M -XX:PermSize=96M -XX:MaxPermSize=192M -XX:+UseConcMarkSweepGC -XX:+CMSParallelRemarkEnabled -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/var/tmp/${username}-tomcat.hprof -Dfile.encoding=UTF-8",
   $tomcat_webapps       = {
