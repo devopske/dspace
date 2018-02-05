@@ -56,6 +56,7 @@ define dspace::install ($owner             = $dspace::owner,
                         $db_port           = $dspace::db_port,
                         $db_user           = $dspace::db_owner,
                         $db_passwd         = $dspace::db_owner_passwd,
+			$db_endpoint       = undef,
                         $handle_prefix     = $dspace::handle_prefix,
                         $local_config_source = undef,
                         $ensure            = present)
