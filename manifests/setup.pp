@@ -41,6 +41,7 @@
 define dspace::setup (
   $java_version,
   $db_endpoint= "dspacepuppet.crmamqzflhj7.eu-west-1.rds.amazonaws.com",
+  PGPASSWORD="${db_passwd}"
   $owner,
   $username,
   $src_dir= "/home/${owner}/dspace-src",
@@ -101,7 +102,7 @@ define dspace::setup (
   
  exec { 'create database':
    #user   => "dspacepuppet",
-   command => "psql --host=${db_endpoint} --port=5432  --username=${db_user} -W ${db_passwd} --command='CREATE DATABASE ${db_name}'",
+   command => "psql --host=${db_endpoint} --port=5432  --username=${db_user} --command='CREATE DATABASE ${db_name}'",
    path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
  }
 
