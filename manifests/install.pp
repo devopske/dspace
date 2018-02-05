@@ -37,6 +37,8 @@ define dspace::install ($owner             = $dspace::owner,
                         $group             = $dspace::group,
                         $src_dir           = $dspace::src_dir,
                         $install_dir       = undef,
+		        $domain            = undef,
+			$tomcat_ajp_port   = undef,
                         $git_repo          = $dspace::git_repo,
                         $git_branch        = undef,
                         $mvn_params        = $dspace::mvn_params,
@@ -92,7 +94,7 @@ exec { 'create database':
    command => "psql --host=${db_endpoint} --port=5432  --username=${db_user} --command='CREATE DATABASE ${db_name}'",
    path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
  }
- ->
+->
     # ensure the GitHub SSH host authenticity is handled before we check out anything
     # can return either 0 or 1, both are OK
     # return 1 = warning about adding the fingerprint is thrown, this is a good thing, we want this
@@ -247,7 +249,5 @@ exec { "Delete default build.properties in ${src_dir}":
 
 }
    }
-
-
 
 }
