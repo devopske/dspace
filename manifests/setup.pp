@@ -146,7 +146,6 @@ define dspace::setup (
         parent_host => "localhost",
         additional_attributes => {'path'=>'/'},
       }
-  }
   
   #2
   tomcat::config::server::context{"${title}":
@@ -156,7 +155,7 @@ define dspace::setup (
         parent_host => "localhost",
         additional_attributes => {'path'=>'oai'},
       }
-  }
+ 
   #3
   tomcat::config::server::context{"${title}":
         catalina_base => $catalina_base,
@@ -165,7 +164,6 @@ define dspace::setup (
         parent_host => "localhost",
         additional_attributes => {'path'=>'jspui'},
       }
-  }
   
   #4
   tomcat::config::server::context{"${title}":
@@ -175,7 +173,6 @@ define dspace::setup (
         parent_host => "localhost",
         additional_attributes => {'path'=>'rdf'},
       }
-  }
   #5
   tomcat::config::server::context{"${title}":
         catalina_base => $catalina_base,
@@ -184,7 +181,6 @@ define dspace::setup (
         parent_host => "localhost",
         additional_attributes => {'path'=>'rest'},
       }
-  }
   #6
   tomcat::config::server::context{"${title}":
         catalina_base => $catalina_base,
@@ -193,7 +189,6 @@ define dspace::setup (
         parent_host => "localhost",
         additional_attributes => {'path'=>'solr'},
       }
-  }
   #7
   tomcat::config::server::context{"${title}":
         catalina_base => $catalina_base,
@@ -202,7 +197,6 @@ define dspace::setup (
         parent_host => "localhost",
         additional_attributes => {'path'=>'sword'},
       }
-  }
   #8
   tomcat::config::server::context{"${title}":
         catalina_base => $catalina_base,
