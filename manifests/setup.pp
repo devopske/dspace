@@ -139,7 +139,7 @@ define dspace::setup (
   #######################################
   tomcat::config::server::context{"${title}":
      catalina_base => $catalina_base,
-     contect_ensure => 'present',
+     context_ensure => 'present',
      doc_base => $title,
      parent_host => "localhost",
      additional_attributes => {'path' => '/'},
