@@ -132,7 +132,7 @@ define dspace::setup (
   # . Set Dspace WebApps on Tomcat .    #
   #######################################
   
-  map($tomcat_webapps) |$items|{
+  $tomcat_webapps.map |$items|{
       tomcat::config::server::context{"${title}":
         catalina_base => $catalina_base,
         context_ensure => 'present',
