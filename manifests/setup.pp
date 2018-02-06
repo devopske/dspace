@@ -142,8 +142,8 @@ define dspace::setup (
       }
   }*/
   
-  $data = {"rtr" => "Router", "svr" => "Server", "wks" => "Workstation"}
- $data.each |$items| {
+ $data = {"rtr" => "Router", "svr" => "Server", "wks" => "Workstation"}
+ each( $data) |$items| {
  notify { $items[0]:
    message => $items[1]
  }
