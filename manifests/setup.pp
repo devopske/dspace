@@ -70,7 +70,14 @@ define dspace::setup (
   $ajp_port = undef,
   #$site_name = "DSpaceDirect",
   $tomcat_opts = "-server -Xms768M -Xmx1024M -XX:PermSize=96M -XX:MaxPermSize=192M -XX:+UseConcMarkSweepGC -XX:+CMSParallelRemarkEnabled -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/var/tmp/${username}-tomcat.hprof -Dfile.encoding=UTF-8",
-  $tomcat_webapps = {"/home/${username}/dspace/webapps/xmlui"   => "'path' => 'ROOT'","/home/${username}/dspace/webapps/oai" => "'path' => 'oai'","/home/${username}/dspace/webapps/rest"    => "'path' => 'rest'",
+  $tomcat_webapps = {"/home/${username}/dspace/webapps/xmlui"   => "'path' => 'ROOT'","/home/${username}/dspace/webapps/oai" => "tomcat::config::server::context{"${title}":
+        catalina_base => $catalina_base,
+        context_ensure => 'present',
+        doc_base => ""/home/${username}/dspace/webapps/xmlui"",
+        parent_host => "localhost",
+        additional_attributes => {'path'=>'/'},
+      }
+  }","/home/${username}/dspace/webapps/rest"    => "'path' => 'rest'",
          "/home/${username}/dspace/webapps/solr"    => "'path' => 'solr'","/home/${username}/dspace/webapps/sword"   => "'path => 'sword'","/home/${username}/dspace/webapps/swordv2" => "'path => 'swordv2'",},
  # DSpace Admin Account settings
   $admin_firstname = undef,
@@ -131,23 +138,80 @@ define dspace::setup (
   #######################################
   # . Set Dspace WebApps on Tomcat .    #
   #######################################
-  /*
-  $tomcat_webapps.map |$items|{
-      tomcat::config::server::context{"${title}":
+ #Default 
+ tomcat::config::server::context{"${title}":
         catalina_base => $catalina_base,
         context_ensure => 'present',
-        doc_base => $items[0],
+        doc_base => "/home/${owner}/dspace/webapps/xmlui",
         parent_host => "localhost",
-        additional_attributes => {'$items[1]'},
+        additional_attributes => {'path'=>'/'},
       }
-  }*/
+  }
   
- $data = {"rtr" => "Router", "svr" => "Server", "wks" => "Workstation"}
- each( $data) |$items| {
- notify { $items[0]:
-   message => $items[1]
- }
-}
+  #2
+  tomcat::config::server::context{"${title}":
+        catalina_base => $catalina_base,
+        context_ensure => 'present',
+        doc_base => "/home/${owner}/dspace/webapps/oai",
+        parent_host => "localhost",
+        additional_attributes => {'path'=>'oai'},
+      }
+  }
+  #3
+  tomcat::config::server::context{"${title}":
+        catalina_base => $catalina_base,
+        context_ensure => 'present',
+        doc_base => "/home/${owner}/dspace/webapps/jspui",
+        parent_host => "localhost",
+        additional_attributes => {'path'=>'jspui'},
+      }
+  }
+  
+  #4
+  tomcat::config::server::context{"${title}":
+        catalina_base => $catalina_base,
+        context_ensure => 'present',
+        doc_base => "/home/${owner}/dspace/webapps/rdf",
+        parent_host => "localhost",
+        additional_attributes => {'path'=>'rdf'},
+      }
+  }
+  #5
+  tomcat::config::server::context{"${title}":
+        catalina_base => $catalina_base,
+        context_ensure => 'present',
+        doc_base => "/home/${owner}/dspace/webapps/rest",
+        parent_host => "localhost",
+        additional_attributes => {'path'=>'rest'},
+      }
+  }
+  #6
+  tomcat::config::server::context{"${title}":
+        catalina_base => $catalina_base,
+        context_ensure => 'present',
+        doc_base => "/home/${owner}/dspace/webapps/solr",
+        parent_host => "localhost",
+        additional_attributes => {'path'=>'solr'},
+      }
+  }
+  #7
+  tomcat::config::server::context{"${title}":
+        catalina_base => $catalina_base,
+        context_ensure => 'present',
+        doc_base => "/home/${owner}/dspace/webapps/sword",
+        parent_host => "localhost",
+        additional_attributes => {'path'=>'sword'},
+      }
+  }
+  #8
+  tomcat::config::server::context{"${title}":
+        catalina_base => $catalina_base,
+        context_ensure => 'present',
+        doc_base => "/home/${owner}/dspace/webapps/swordv2",
+        parent_host => "localhost",
+        additional_attributes => {'path'=>'swordv2'},
+      }
+ 
   ######################################################
   #  SET/Change tomcat's server and HTTP/AJP connectors
   #######################################################
