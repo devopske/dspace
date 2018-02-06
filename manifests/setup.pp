@@ -146,7 +146,7 @@ define dspace::setup (
         parent_host => "localhost",
         additional_attributes => {'path'=>'/'},
       }
-  
+ /* 
   #2
   tomcat::config::server::context{"${title}":
         catalina_base => $catalina_base,
@@ -204,7 +204,7 @@ define dspace::setup (
         doc_base => "/home/${owner}/dspace/webapps/swordv2",
         parent_host => "localhost",
         additional_attributes => {'path'=>'swordv2'},
-      }
+      }*/
  
   ######################################################
   #  SET/Change tomcat's server and HTTP/AJP connectors
