@@ -71,12 +71,12 @@ define dspace::setup (
   #$site_name = "DSpaceDirect",
   $tomcat_opts = "-server -Xms768M -Xmx1024M -XX:PermSize=96M -XX:MaxPermSize=192M -XX:+UseConcMarkSweepGC -XX:+CMSParallelRemarkEnabled -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/var/tmp/${username}-tomcat.hprof -Dfile.encoding=UTF-8",
   $tomcat_webapps       = {
-                           "/home/${username}/dspace/webapps/xmlui"   => { path => 'ROOT' },
-                           "/home/${username}/dspace/webapps/oai"     => { path => 'oai' },
-                           "/home/${username}/dspace/webapps/rest"    => { path => 'rest' },
-                           "/home/${username}/dspace/webapps/solr"    => { path => 'solr' },
-                           "/home/${username}/dspace/webapps/sword"   => { path => 'sword' },
-                           "/home/${username}/dspace/webapps/swordv2" => { path => 'swordv2' },
+                           "/home/${username}/dspace/webapps/xmlui"   => "'path' => 'ROOT'",
+                           "/home/${username}/dspace/webapps/oai"     => "'path' => 'oai'",
+                           "/home/${username}/dspace/webapps/rest"    => "'path' => 'rest'",
+                           "/home/${username}/dspace/webapps/solr"    => "'path' => 'solr'",
+                           "/home/${username}/dspace/webapps/sword"   => "'path => 'sword'",
+                           "/home/${username}/dspace/webapps/swordv2" => "'path => 'swordv2'",
                            },
  # DSpace Admin Account settings
   $admin_firstname = undef,
