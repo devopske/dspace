@@ -134,6 +134,15 @@ define dspace::setup (
            #webapps  => $tomcat_webapps,
          }
          
+  #######################################
+  # . Set Dspace WebApps on Tomcat .    #
+  #######################################
+  tomcat::config::server::context
+     contect_ensure = 'present'
+     doc_base = ${title}
+     parent_host = "localhost"
+     additional_attributes = {'path' => '/'}
+         
   ######################################################
   #  SET/Change tomcat's server and HTTP/AJP connectors
   #######################################################
