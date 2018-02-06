@@ -69,7 +69,7 @@ define dspace::setup (
   $tomcat_ajp_port = undef,
   $ajp_port = undef,
   #$site_name = "DSpaceDirect",
-  $tomcat_opts = "-server -Xms768M -Xmx1024M -XX:PermSize=96M -XX:MaxPermSize=192M -XX:+UseConcMarkSweepGC -XX:+CMSParallelRemarkEnabled -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/var/tmp/${username}-tomcat.hprof -Dfile.encoding=UTF-8"
+  $tomcat_opts = "-server -Xms768M -Xmx1024M -XX:PermSize=96M -XX:MaxPermSize=192M -XX:+UseConcMarkSweepGC -XX:+CMSParallelRemarkEnabled -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/var/tmp/${username}-tomcat.hprof -Dfile.encoding=UTF-8",
  # DSpace Admin Account settings
   $admin_firstname = undef,
   $admin_lastname = undef,
@@ -78,7 +78,7 @@ define dspace::setup (
   $admin_language = 'en',
 
 )
-{
+  {
     
   ######################
   # . Acccount owner . #
