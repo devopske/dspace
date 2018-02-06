@@ -157,13 +157,13 @@ define dspace::setup (
       }
  
   #3
- tomcat::config::server::context{"${title}":
+ /*tomcat::config::server::context{"${title}":
         catalina_base => $catalina_base,
         context_ensure => 'present',
         doc_base => "/home/${owner}/dspace/webapps/jspui",
         parent_host => "localhost",
         additional_attributes => {'path'=>'jspui'},
-      }
+      }*/
  
   #4
   tomcat::config::server::context{"${title}":
