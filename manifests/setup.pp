@@ -139,7 +139,7 @@ define dspace::setup (
   # . Set Dspace WebApps on Tomcat .    #
   #######################################
  #Default 
- tomcat::config::server::context{"${title}":
+ tomcat::config::server::context {"${title}":
         catalina_base => $catalina_base,
         context_ensure => 'present',
         doc_base => "/home/${owner}/dspace/webapps/xmlui",
