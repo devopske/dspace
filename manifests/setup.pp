@@ -70,14 +70,8 @@ define dspace::setup (
   $ajp_port = undef,
   #$site_name = "DSpaceDirect",
   $tomcat_opts = "-server -Xms768M -Xmx1024M -XX:PermSize=96M -XX:MaxPermSize=192M -XX:+UseConcMarkSweepGC -XX:+CMSParallelRemarkEnabled -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/var/tmp/${username}-tomcat.hprof -Dfile.encoding=UTF-8",
-  $tomcat_webapps       = {
-                           "/home/${username}/dspace/webapps/xmlui"   => "'path' => 'ROOT'",
-                           "/home/${username}/dspace/webapps/oai"     => "'path' => 'oai'",
-                           "/home/${username}/dspace/webapps/rest"    => "'path' => 'rest'",
-                           "/home/${username}/dspace/webapps/solr"    => "'path' => 'solr'",
-                           "/home/${username}/dspace/webapps/sword"   => "'path => 'sword'",
-                           "/home/${username}/dspace/webapps/swordv2" => "'path => 'swordv2'",
-                           },
+  $tomcat_webapps = {"/home/${username}/dspace/webapps/xmlui"   => "'path' => 'ROOT'","/home/${username}/dspace/webapps/oai" => "'path' => 'oai'","/home/${username}/dspace/webapps/rest"    => "'path' => 'rest'",
+         "/home/${username}/dspace/webapps/solr"    => "'path' => 'solr'","/home/${username}/dspace/webapps/sword"   => "'path => 'sword'","/home/${username}/dspace/webapps/swordv2" => "'path => 'swordv2'",},
  # DSpace Admin Account settings
   $admin_firstname = undef,
   $admin_lastname = undef,
@@ -138,13 +132,13 @@ define dspace::setup (
   # . Set Dspace WebApps on Tomcat .    #
   #######################################
   
-  $tomcat_webapps.map |$key, $value| {
+  $tomcat_webapps.each |$key, $value| {
       tomcat::config::server::context{"${title}":
         catalina_base => $catalina_base,
         context_ensure => 'present',
         doc_base => $key,
         parent_host => "localhost",
-        additional_attributes => {$value},
+        additional_attributes => {'$value'},
       }
   }
   ######################################################
