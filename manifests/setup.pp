@@ -58,7 +58,7 @@ define dspace::setup (
   $db_user,
   $db_passwd,
   $db_port,
-  $git_repo  = "git@github.com:duraspace/dspacedirect.git",
+  $git_repo  = "https://github.com/DSpace/DSpace.git",
   $git_src_tag = "dspace-${version}",
   $source_url,
   $group = $owner,
