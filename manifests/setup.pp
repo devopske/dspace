@@ -134,7 +134,7 @@ define dspace::setup (
         parent_host => "localhost",
         additional_attributes => {'path'=>'/'},
       }
-      
+  /*    
    #2
   tomcat::config::server::context{"${title}":
         catalina_base => $catalina_base,
@@ -220,7 +220,7 @@ define dspace::setup (
    additional_attributes => {
     'redirectPort' => '8443'
   },
-  }
+  } */
   
   ####################################
   # Setup Apache Redirect to Tomcat  #
