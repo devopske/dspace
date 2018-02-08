@@ -219,6 +219,7 @@ exec { "Delete default build.properties in ${src_dir}":
      subscribe => File["${src_dir}/dspace/config/local.cfg"], # If local.cfg changes, rebuildi
      refreshonly => true,  # Only run if local.cfg changes
      timeout   => 180000, # Disable timeout. This build takes a while!
+     require => Class['dspace'],
      logoutput => true,    # Send stdout to puppet log file (if any)
      notify    => Exec["Install DSpace to ${install_dir}"],  # Notify installation to run
    }
