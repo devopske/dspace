@@ -331,51 +331,24 @@ exec { "Delete default build.properties in ${src_dir}":
      content => template("dspace/index.html.erb"),
   }
 
-
 ->
 
-file { "/etc/init.d/${tomcat_name}":
-            ensure  => file,
-           content => template("dspace/tomcat.erb"),
-             }
-
-->            
- 
- exec { 'chmod':
-    command => "chmod +x /etc/init.d/${tomcat_name}",
-    path =>  [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
-  }
-
-->
- 
-
-exec { 'rc':
-        command => "update-rc.d ${tomcat_name} defaults",
-        path =>  [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
-}
-
-->
-
-
-exec { 'start':
-        command => "service ${tomcat_name} start",
-        path =>  [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
-}
-
-->
-
-
-exec { 'daemon-reload':
-        command => "systemctl daemon-reload",
-        path =>  [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
-}
-->
-exec { 'restart':
-        command => "service ${tomcat_name} restart",
-        path =>  [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
-}
-
- ->
+ #####################
+         file { "/etc/systemd/system/${username}.service":
+            ensure  => 'file',
+            owner   => root,
+            group   => root,
+            content => template("dspace/tomcat-systemd.erb"),
+            mode    => 0644,
+         }
+# Enable this new service script and ensure it starts on boot
+         tomcat::service { "${username}":
+            service_name  => $username,
+            #service_enable     => true,
+            catalina_home => $catalina_home,
+            catalina_base => $catalina_base,
+            use_init      => true,
+        }
 
 
  ####################################
