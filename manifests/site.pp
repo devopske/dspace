@@ -333,27 +333,29 @@ exec { "Delete default build.properties in ${src_dir}":
 
 ->
  #####################
-         file { "/etc/systemd/system/${username}.service":
-            ensure  => 'file',
-            owner   => root,
-            group   => root,
-            content => template("dspace/tomcat-systemd.erb"),
-            mode    => 0644,
-         }
+
+file { "/etc/systemd/system/${username}.service": # file destination
+	content => epp('dspace/tomcat-systemd.erb', {
+				 'catalinaHome' => $catalinaHome,
+				 'catalinaBase' => $catalinaBase,
+				 'tomcatUser'   => $tomcat_user,
+				 'tomcatGroup'  => $tomcat_group,
+			   }),
+	owner    => root,
+	group    => root,
+	mode     => '0644',
+}
 
 ->            
-         #####################
-         # . USING SYSTEMD . #
-         # . UBUNTU 16.04    #
-         #####################
-         # Enable this new service script and ensure it starts on boot
-         tomcat::service { "${username}":
-            service_name  => $username,
-            #service_enable     => true,
-            catalina_home => $catalina_home,
-            catalina_base => $catalina_base,
-            use_init      => true,
-        }
+       
+       
+tomcat::service { "${username}":
+  service_name  => $username,
+  catalina_home => $catalina_home,
+  catalina_base => $catalina_base,
+  use_init      => true,
+}
+
 ->
 
 
