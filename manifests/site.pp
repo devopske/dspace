@@ -335,11 +335,11 @@ exec { "Delete default build.properties in ${src_dir}":
  #####################
 
 file { "/etc/systemd/system/${username}.service": # file destination
-	content => epp('dspace/tomcat-systemd.erb', {
-				 'catalinaHome' => $catalinaHome,
-				 'catalinaBase' => $catalinaBase,
-				 'tomcatUser'   => $tomcat_user,
-				 'tomcatGroup'  => $tomcat_group,
+	content => template('dspace/tomcat-systemd.erb', {
+				 'catalina_home' => $catalina_home,
+				 'catalina_base' => $catalina_base,
+				 'tomcatUser'   => $owner,
+				 'tomcatGroup'  => $owner,
 			   }),
 	owner    => root,
 	group    => root,
