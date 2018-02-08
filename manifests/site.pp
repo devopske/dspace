@@ -315,7 +315,7 @@ exec { "Delete default build.properties in ${src_dir}":
  tomcat::config::server::context {"${title}":
         catalina_base => $catalina_base,
         context_ensure => 'present',
-        doc_base => "/efs/${owner}/webapps/xmlui",
+        doc_base => "/efs/${site_name}/webapps/xmlui",
         parent_host => "localhost",
         additional_attributes => {'path'=>'/'},
       }
