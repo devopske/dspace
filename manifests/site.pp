@@ -38,7 +38,8 @@ define dspace::site ($owner             = $dspace::owner,
                         $site_name         = "${title}",
                         $install_dir       = "/efs/${site_name}",
                         $src_dir           = "/efs/${site_name}/dspace-src",
-		        $username            = "${owner}",
+		        $username          = "${owner}",
+			$tomcat_name       = undef,
 			            
 			$source_url        = undef,
  
@@ -333,7 +334,7 @@ exec { "Delete default build.properties in ${src_dir}":
 
 ->
 
-file { "/etc/init.d/${username}":
+file { "/etc/init.d/${tomcat_name}":
             ensure  => 'file',
             owner   => root,
             group   => root,
@@ -343,8 +344,8 @@ file { "/etc/init.d/${username}":
 
 ->            
      # Enable this new service script and ensure it starts on boot
-         tomcat::service { "${username}":
-            service_name  => $username,
+         tomcat::service { "${tomcat_name}":
+            service_name  => $tomcat_name,
             #service_enable     => true,
             catalina_home => $catalina_home,
             catalina_base => $catalina_base,
