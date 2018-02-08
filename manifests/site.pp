@@ -1,4 +1,4 @@
-# Definition: dspace::install
+# Definition: dspace::site
 #
 # Each time this is called, the following happens:
 #  - DSpace source is pulled down from GitHub
@@ -28,7 +28,7 @@
 # - $ensure => Whether to ensure DSpace instance is created ('present', default value) or deleted ('absent')
 #
 # Sample Usage:
-# dspace::install { '/dspace':
+# dspace::site { '/dspace':
 #    owner      => "dspace",
 #    git_branch => "master",
 # }
