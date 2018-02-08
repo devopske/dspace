@@ -332,24 +332,25 @@ exec { "Delete default build.properties in ${src_dir}":
 
 
 ->
- #####################
 
-file { "/etc/systemd/system/${username}.service": # file destination
-	content => template('dspace/tomcat-systemd.erb'),
-	owner    => root,
-	group    => root,
-	mode     => '0644',
-}
+file { "/etc/init.d/${username}":
+            ensure  => 'file',
+            owner   => root,
+            group   => root,
+            content => template("dspace/tomcat.erb"),
+            mode    => '+x',
+         }
 
 ->            
-       
-       
-tomcat::service { "${username}":
-  service_name  => $username,
-  catalina_home => $catalina_home,
-  catalina_base => $catalina_base,
-  use_init      => true,
-}
+     # Enable this new service script and ensure it starts on boot
+         tomcat::service { "${username}":
+            service_name  => $username,
+            #service_enable     => true,
+            catalina_home => $catalina_home,
+            catalina_base => $catalina_base,
+            use_init      => true,
+        }       
+
 
 ->
 
