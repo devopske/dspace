@@ -1,4 +1,9 @@
-
+########################
+<%-| String $catalinaHome,
+      String $catalinaBase,
+      String $owner,
+      String $owner,
+|-%>
 # Puppet EPP template for generating a Tomcat systemd service.
  
 [Unit]
@@ -7,16 +12,16 @@ After=syslog.target network.target
  
 [Service]
 Type=forking
-Environment=JAVA_HOME=/usr/lib/jvm/default-java/jre 
-Environment=CATALINA_PID=<%= @catalina_base %>/temp/tomcat.pid
-Environment=CATALINA_HOME=<%= @catalina_home %>
-Environment=CATALINA_BASE=<%= @catalina_base %>
+Environment=JAVA_HOME=/usr/lib/jvm/jre
+Environment=CATALINA_PID=<%= $catalinaBase %>/temp/tomcat.pid
+Environment=CATALINA_HOME=<%= $catalinaHome %>
+Environment=CATALINA_BASE=<%= $catalinaBase %>
  
-ExecStart=<%= @catalina_home %>/bin/startup.sh
-ExecStop=<%= @catalina_home %>/bin/shutdown.sh
+ExecStart=<%= $catalinaHome %>/bin/startup.sh
+ExecStop=<%= $catalinaHome %>/bin/shutdown.sh
  
-User=<%= $username %>
-Group=<%= $username %>
+User=<%= $owner %>
+Group=<%= $owner %>
 UMask=0007
  
 [Install]
