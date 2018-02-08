@@ -38,7 +38,7 @@ define dspace::site ($owner             = $dspace::owner,
                         $site_name         = "${title}",
                         $install_dir       = "/efs/${site_name}",
                         $src_dir           = "/efs/${site_name}/dspace-src",
-		        $username          = "${owner}",
+		        $username          = undef,
 			$tomcat_name       = undef,
 			            
 			$source_url        = undef,
