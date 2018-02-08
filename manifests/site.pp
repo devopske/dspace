@@ -335,16 +335,18 @@ exec { "Delete default build.properties in ${src_dir}":
 ->
 
 file { "/etc/init.d/${tomcat_name}":
-            ensure  => 'file',
-            owner   => root,
-            group   => root,
-            content => template("dspace/tomcat.erb"),
-            mode    => '+x',
-         }
+            ensure  => file,
+           content => template("dspace/tomcat.erb"),
+             }
 
 ->            
  
- 
+ exec { 'chmod':
+    command => "chmod +x /etc/init.d/${tomcat_name}",
+    path =>  [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
+  }
+
+->
  
 
 exec { 'rc':
