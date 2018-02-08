@@ -341,7 +341,7 @@ exec { "Delete default build.properties in ${src_dir}":
             mode    => 0644,
          }
 
-            
+->            
          #####################
          # . USING SYSTEMD . #
          # . UBUNTU 16.04    #
