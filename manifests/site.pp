@@ -343,17 +343,37 @@ file { "/etc/init.d/${tomcat_name}":
          }
 
 ->            
-     # Enable this new service script and ensure it starts on boot
-         tomcat::service { "${tomcat_name}":
-            service_name  => $tomcat_name,
-            #service_enable     => true,
-            catalina_home => $catalina_home,
-            catalina_base => $catalina_base,
-            use_init      => true,
-        }       
+ 
+ 
+ 
 
+exec { 'rc':
+        command => 'update-rc.d $tomcat_name defaults',
+        path =>  [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
+}
 
 ->
+
+
+exec { 'start':
+        command => 'service $tomcat_name start',
+        path =>  [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
+}
+
+->
+
+
+exec { 'daemon-reload':
+        command => 'systemctl daemon-reload',
+        path =>  [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
+}
+->
+exec { 'restart':
+        command => 'service $tomcat_name restart',
+        path =>  [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
+}
+
+ ->
 
 
  ####################################
