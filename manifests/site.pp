@@ -36,8 +36,8 @@
 define dspace::site ($owner             = $dspace::owner,
                         $group             = $dspace::group,
                         $site_name         = "${title}",
-                        $install_dir       = "/efs/${owner}",
-                        $src_dir           = "/efs/${owner}/dspace-src",
+                        $install_dir       = "/efs/${site_name}",
+                        $src_dir           = "/efs/${site_name}/dspace-src",
 		        $username            = "${owner}",
 			            
 			$source_url        = undef,
