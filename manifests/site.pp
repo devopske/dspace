@@ -38,7 +38,7 @@ define dspace::site ($owner             = $dspace::owner,
                         $site_name         = "${title}",
                         $install_dir       = "/efs/${owner}",
                         $src_dir           = "/efs/${owner}/dspace-src",
-		        $domain            = undef,
+		        $username            = "${owner}",
 			            
 			$source_url        = undef,
  
@@ -332,6 +332,30 @@ exec { "Delete default build.properties in ${src_dir}":
 
 
 ->
+ #####################
+         file { "/etc/systemd/system/${username}.service":
+            ensure  => 'file',
+            owner   => root,
+            group   => root,
+            content => template("dspace/tomcat-systemd.erb"),
+            mode    => 0644,
+         }
+
+            
+         #####################
+         # . USING SYSTEMD . #
+         # . UBUNTU 16.04    #
+         #####################
+         # Enable this new service script and ensure it starts on boot
+         tomcat::service { "${username}":
+            service_name  => $username,
+            #service_enable     => true,
+            catalina_home => $catalina_home,
+            catalina_base => $catalina_base,
+            use_init      => true,
+        }
+->
+
 
  ####################################
   # Setup Apache Redirect to Tomcat  #
