@@ -348,7 +348,7 @@ file { "/etc/init.d/${tomcat_name}":
  
 
 exec { 'rc':
-        command => 'update-rc.d $tomcat_name defaults',
+        command => "update-rc.d ${tomcat_name} defaults",
         path =>  [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
 }
 
@@ -356,7 +356,7 @@ exec { 'rc':
 
 
 exec { 'start':
-        command => 'service $tomcat_name start',
+        command => "service ${tomcat_name} start",
         path =>  [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
 }
 
@@ -364,12 +364,12 @@ exec { 'start':
 
 
 exec { 'daemon-reload':
-        command => 'systemctl daemon-reload',
+        command => "systemctl daemon-reload",
         path =>  [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
 }
 ->
 exec { 'restart':
-        command => 'service $tomcat_name restart',
+        command => "service ${tomcat_name} restart",
         path =>  [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
 }
 
