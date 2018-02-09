@@ -113,7 +113,7 @@ define dspace::site ($owner             = $dspace::owner,
     }
 
 ->
-exec { 'create database':
+exec { ""Create Database for : ${title}": 
    environment => ["PGPASSWORD=${db_passwd}"],
    command => "psql --host=${db_endpoint} --port=5432  --username=${db_user} --command='CREATE DATABASE ${db_name}'",
    path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
@@ -138,7 +138,8 @@ exec { 'create database':
 ->
 
     # Checkout the specified branch
-    exec { "Checkout branch ${git_branch}" :
+    
+    exec {"Checkout branch ${git_branch} for ${owner}" :
        command => "git checkout ${git_branch}",
        path =>  [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
        cwd     => $src_dir, # run command from this directory
@@ -159,7 +160,7 @@ exec { "Delete default build.properties in ${src_dir}":
     #timeout   => 18000, # Disable timeout. This build takes a while!
     #logoutput => true,    # Send stdout to puppet log file (if any)
     #notify    => Exec["Install DSpace to ${install_dir}"],  # Notify installation to run
-    require => Exec["Checkout branch ${git_branch}"],
+    require => Exec["Checkout branch ${git_branch} for ${owner}"],
     before  => Exec["Build DSpace installer in ${src_dir}"],
 }
 
@@ -173,7 +174,7 @@ exec { "Delete default build.properties in ${src_dir}":
      group   => $group,
      mode    => '0644',
      content => template("dspace/custom.properties.erb"),
-     require => Exec["Checkout branch ${git_branch}"],
+     require => Exec["Checkout branch ${git_branch} for ${owner}"],
      before  => Exec["Build DSpace installer in ${src_dir}"],
   }
 
@@ -189,7 +190,7 @@ exec { "Delete default build.properties in ${src_dir}":
        group   => $group,
        mode    => '0644',
        source  => $local_config_source,
-       require => Exec["Checkout branch ${git_branch}"],
+       require => Exec["Checkout branch ${git_branch} for ${owner}"],
        before  => Exec["Build DSpace installer in ${src_dir}"],
      }
    }
@@ -201,7 +202,7 @@ exec { "Delete default build.properties in ${src_dir}":
        group   => $group,
        mode    => '0644',
        content => template("dspace/local.cfg.erb"),
-       require => Exec["Checkout branch ${git_branch}"],
+       require => Exec["Checkout branch ${git_branch} for ${owner}"],
        before  => Exec["Build DSpace installer in ${src_dir}"],
      }
 
@@ -241,7 +242,7 @@ exec { "Delete default build.properties in ${src_dir}":
    # Create initial administrator (if specified)
  if $admin_email and $admin_passwd and $admin_firstname and $admin_lastname and $admin_language and $admin1_email and $admin1_passwd and $admin1_firstname and $admin1_lastname and $admin1_language
    {
-     exec { "Create DSpace Administrator":
+     exec { "Create DSpace Administrator for site: ${owner}":
        command   => "${install_dir}/bin/dspace create-administrator -e ${admin_email} -f ${admin_firstname} -l ${admin_lastname} -p ${admin_passwd} -c ${admin_language}",
        cwd       => $install_dir,
      #  user      => $owner,
@@ -251,19 +252,6 @@ exec { "Delete default build.properties in ${src_dir}":
 }
    }
 
-
- if $admin1_email and $admin1_passwd and $admin1_firstname and $admin1_lastname and $admin1_language
-   {
-     exec { "Create DSpace Administrator_2":
-       command   => "${install_dir}/bin/dspace create-administrator -e ${admin1_email} -f ${admin1_firstname} -l ${admin1_lastname} -p ${admin1_passwd} -c ${admin1_language}",
-       cwd       => $install_dir,
-       user      => $owner,
-       logoutput => true,
-       require   => Exec["Install DSpace to ${install_dir}"],
-
-}
-   }
-  
  
 ####################Setup Tomcat#########################
 #########################
@@ -294,6 +282,7 @@ exec { "Delete default build.properties in ${src_dir}":
    additional_attributes => {
     'redirectPort' => '8443'
    },
+  notify => Tomcat::Service["${owner}"]
   }
 
   tomcat::config::server::connector { "${owner}-ajp":
@@ -319,6 +308,8 @@ exec { "Delete default build.properties in ${src_dir}":
         doc_base => "/efs/${site_name}/webapps/xmlui",
         parent_host => "localhost",
         additional_attributes => {'path'=>'/'},
+        notify => Tomcat::Service["${owner}"]
+
       }
   ->
 
@@ -331,6 +322,21 @@ exec { "Delete default build.properties in ${src_dir}":
      content => template("dspace/index.html.erb"),
   }
 
+->
+
+
+ ####################################
+  # Setup Apache Redirect to Tomcat  #
+  ####################################
+  notify { "The Hash values are: ${site_name}": }
+         # Create a new Apache vhost (site) which will redirect (via AJP)
+         # requests to the Tomcat instance created above.
+         dspace::apache_site { $site_name :
+           hostname => $title,
+           ensure   => present,
+           tomcat_ajp_port  => $tomcat_ajp_port,
+         }
+	 
 ->
 
  #####################
@@ -359,16 +365,5 @@ exec { "Reload":
             use_init      => true,
         }
 
-
- ####################################
-  # Setup Apache Redirect to Tomcat  #
-  ####################################
-  notify { "The Hash values are: ${site_name}": }
-         # Create a new Apache vhost (site) which will redirect (via AJP)
-         # requests to the Tomcat instance created above.
-         dspace::apache_site { $site_name :
-           ensure           => present,
-           tomcat_ajp_port  => $tomcat_ajp_port,
-         }
 }
 
