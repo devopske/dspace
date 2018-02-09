@@ -243,7 +243,7 @@ exec { "Delete default build.properties in ${src_dir}":
  
 if $admin_email and $admin_passwd and $admin_firstname and $admin_lastname and $admin_language
    {
-     exec { "Create DSpace Administrator":
+     exec { "Create DSpace Administrator for site: ${owner}":
        command   => "${install_dir}/bin/dspace create-administrator -e ${admin_email} -f ${admin_firstname} -l ${admin_lastname} -p ${admin_passwd} -c ${admin_language}",
        path =>  [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
        provider => shell,
