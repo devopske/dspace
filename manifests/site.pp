@@ -260,7 +260,7 @@ exec { "Delete default build.properties in ${src_dir}":
   #Create a new Tomcat instance owned by this user
   
   
-  tomcat::instance { $url :
+  tomcat::instance { "${owner}" :
            catalina_home => $catalina_home,
            source_url   => $source_url,
          }
