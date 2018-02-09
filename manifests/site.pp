@@ -240,17 +240,20 @@ exec { "Delete default build.properties in ${src_dir}":
    }
 
    # Create initial administrator (if specified)
- if $admin_email and $admin_passwd and $admin_firstname and $admin_lastname and $admin_language and $admin1_email and $admin1_passwd and $admin1_firstname and $admin1_lastname and $admin1_language
+ 
+if $admin_email and $admin_passwd and $admin_firstname and $admin_lastname and $admin_language
    {
-     exec { "Create DSpace Administrator for site: ${owner}":
+     exec { "Create DSpace Administrator":
        command   => "${install_dir}/bin/dspace create-administrator -e ${admin_email} -f ${admin_firstname} -l ${admin_lastname} -p ${admin_passwd} -c ${admin_language}",
+       path =>  [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
+       provider => shell,
        cwd       => $install_dir,
-     #  user      => $owner,
+      # user      => $owner,
        logoutput => true,
-       require   => Exec["Install DSpace to ${install_dir}"],     
-
-}
+       require   => Exec["Install DSpace to ${install_dir}"],
+     }
    }
+
 
  
 ####################Setup Tomcat#########################
