@@ -365,5 +365,11 @@ exec { "Reload for ${owner}":
             use_init      => true,
         }
 
+->
+exec { "Restart tomcat for ${owner}":
+     command   => "systemctl restart ${username}.service",
+     path =>  [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
+     }
+     
 }
 
