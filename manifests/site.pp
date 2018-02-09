@@ -282,7 +282,7 @@ exec { "Delete default build.properties in ${src_dir}":
    additional_attributes => {
     'redirectPort' => '8443'
    },
-  notify => Tomcat::Service["${owner}"]
+  notify => Tomcat::Service["${username}"]
   }
 
   tomcat::config::server::connector { "${owner}-ajp":
