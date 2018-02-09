@@ -308,7 +308,7 @@ exec { "Delete default build.properties in ${src_dir}":
         doc_base => "/efs/${site_name}/webapps/xmlui",
         parent_host => "localhost",
         additional_attributes => {'path'=>'/'},
-        notify => Tomcat::Service["${owner}"]
+        notify => Tomcat::Service["${username}"]
 
       }
   ->
