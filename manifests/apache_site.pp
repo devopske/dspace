@@ -41,16 +41,18 @@ define dspace::apache_site ($hostname        = $name,
   {
     # Present = Install/Setup Apache
     present: {
-
+    /*------ moved to init.pp----
       # Install Apache. Turn off default vhost (we want DSpace to be default)
-      class { 'apache':
+      class { "Apache for ${hostname}":
         default_vhost => false,
-      }
+      } 
 
       # Install mod_proxy and mod_proxy_ajp
       # These modules are needed to proxy all requests to Tomcat
       class { 'apache::mod::proxy': }
       class { 'apache::mod::proxy_ajp': }
+      
+      ----Puppet cannot install twice------*/
 
       # Create a virtual host for our site, running on port 80
       # and proxying ALL requests to Tomcat's AJP port.
@@ -110,7 +112,7 @@ define dspace::apache_site ($hostname        = $name,
       ->
 
       # Uninstall Apache
-      class { 'apache':
+      class { "Apache for ${hostname}":
         package_ensure => purged,
       }
 
