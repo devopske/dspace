@@ -341,6 +341,15 @@ exec { "Delete default build.properties in ${src_dir}":
             content => template("dspace/tomcat-systemd.erb"),
             mode    => 0644,
          }
+	 
+->
+exec { "Reload":
+     command   => "systemctl daemon-reload",
+     path =>  [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
+     }
+     
+->
+	 
 # Enable this new service script and ensure it starts on boot
          tomcat::service { "${username}":
             service_name  => $username,
