@@ -49,7 +49,7 @@ define dspace::site ($owner             = $dspace::owner,
 	             	$port              = $dspace::tomcat_port,
 			$tomcat_port       = undef,
  			$tomcat_shutdown_port = undef,
-			$tomcat_package = 'tomcat8',
+			$package_name = 'tomcat8',
 			$package_ensure = 'present',
 						
                         $git_repo          = $dspace::git_repo,
@@ -268,8 +268,9 @@ if $admin_email and $admin_passwd and $admin_firstname and $admin_lastname and $
 #    }
   
   tomcat::instance { "${owner}" :
-           catalina_home => $catalina_home,
+         #  catalina_home => $catalina_home,
 	   install_from_source => false,
+	   
 	  # package_ensure => 'present',
 	 #  package_name => $tomcat_package,
            #source_url   => $source_url,
