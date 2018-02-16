@@ -263,7 +263,7 @@ if $admin_email and $admin_passwd and $admin_firstname and $admin_lastname and $
   # Setup Tomcat Instance
   ##########################
   #Create a new Tomcat instance owned by this user
-  class { 'tomcat': }
+  #class { 'tomcat': 
 #    install_from_source => false,
 #    }
   
