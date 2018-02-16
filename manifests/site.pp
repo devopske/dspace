@@ -265,7 +265,10 @@ if $admin_email and $admin_passwd and $admin_firstname and $admin_lastname and $
   
   tomcat::instance { "${owner}" :
            catalina_home => $catalina_home,
-           source_url   => $source_url,
+	   install_from_source => false,
+	   package_ensure => 'present',
+	   package_name => 'tomcat8',
+           #source_url   => $source_url,
          }
          
 -> 
