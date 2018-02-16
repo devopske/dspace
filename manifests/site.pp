@@ -49,7 +49,7 @@ define dspace::site ($owner             = $dspace::owner,
 	             	$port              = $dspace::tomcat_port,
 			$tomcat_port       = undef,
  			$tomcat_shutdown_port = undef,
-			$tomcat_package = 'tomcat8',
+			$tomcat_package = 'tomcat',
 			$package_ensure = 'present',
 						
                         $git_repo          = $dspace::git_repo,
