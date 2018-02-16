@@ -269,7 +269,7 @@ if $admin_email and $admin_passwd and $admin_firstname and $admin_lastname and $
            catalina_home => $catalina_home,
 	   install_from_source => false,
 	  # package_ensure => 'present',
-#	   package_name => $tomcat_package,
+	   package_name => $tomcat_package,
            #source_url   => $source_url,
          }
          
