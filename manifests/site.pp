@@ -263,13 +263,13 @@ if $admin_email and $admin_passwd and $admin_firstname and $admin_lastname and $
   # Setup Tomcat Instance
   ##########################
   #Create a new Tomcat instance owned by this user
-  class { 'tomcat':
-    install_from_source => false,
-    }
+#  class { 'tomcat':
+#    install_from_source => false,
+#    }
   
   tomcat::instance { "${owner}" :
            catalina_home => $catalina_home,
-	  #install_from_source => false,
+	   install_from_source => false,
 	  # package_ensure => 'present',
 	   package_name => $tomcat_package,
            #source_url   => $source_url,
