@@ -116,6 +116,7 @@ define dspace::site ($owner             = $dspace::owner,
 exec { "Create Database for : ${title}": 
    environment => ["PGPASSWORD=${db_passwd}"],
    command => "psql --host=${db_endpoint} --port=5432  --username=${db_user} DspaceDb --command='CREATE DATABASE IF NOT EXISTS ${db_name}'",
+   unless  => "test \$(psql -tA -c \"SELECT count(*)=1 FROM pg_catalog.pg_database where datname='${db_name}';\") = t",
    path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
  }
 ->
