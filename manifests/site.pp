@@ -277,12 +277,12 @@ if $admin_email and $admin_passwd and $admin_firstname and $admin_lastname and $
   #  SET/Change tomcat's server and HTTP/AJP connectors
   #######################################################
   tomcat::config::server { "${owner}":
-   catalina_base => $catalina_base,
+   catalina_base => "$catalina_base/{$username}",
    port          => $tomcat_shutdown_port,
   }
 
   tomcat::config::server::connector { "${owner}-http":
-   catalina_base         => $catalina_base,
+   catalina_base => "$catalina_base/{$username}",
    port                  => $tomcat_port,
    protocol              => 'HTTP/1.1',
    purge_connectors      => true,
@@ -293,7 +293,7 @@ if $admin_email and $admin_passwd and $admin_firstname and $admin_lastname and $
   }
 
   tomcat::config::server::connector { "${owner}-ajp":
-   catalina_base         => $catalina_base,
+   catalina_base => "$catalina_base/{$username}",
    port                  => $tomcat_ajp_port,
    protocol              => 'AJP/1.3',
    purge_connectors      => true,
@@ -310,7 +310,7 @@ if $admin_email and $admin_passwd and $admin_firstname and $admin_lastname and $
  ->
 
  tomcat::config::server::context {"${title}":
-        catalina_base => $catalina_base,
+        catalina_base => "$catalina_base/{$username}",
         context_ensure => 'present',
         doc_base => "/efs/${site_name}/webapps/xmlui",
         parent_host => "localhost",
@@ -321,7 +321,7 @@ if $admin_email and $admin_passwd and $admin_firstname and $admin_lastname and $
   ->
 
 
- file { "${catalina_base}/webapps/ROOT/index.html":
+ file { "${catalina_base}/${username}/webapps/ROOT/index.html":
      ensure  => file,
      owner   => $owner,
      group   => $group,
@@ -367,8 +367,8 @@ exec { "Reload for ${owner}":
          tomcat::service { "${username}":
             service_name  => $username,
             #service_enable     => true,
-            catalina_home => $catalina_home,
-            catalina_base => $catalina_base,
+            catalina_home => "$catalina_home/{$username}",
+            catalina_base => "$catalina_base/{$username}",
             use_init      => true,
         }
 
