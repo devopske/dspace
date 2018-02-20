@@ -172,7 +172,7 @@ exec { "Delete default build.properties in ${src_dir} for ${owner}":
    # Create a 'custom.properties' file which will be used by older versions of DSpace to build the DSpace installer
    # (INSTEAD OF the default 'build.properties' file that DSpace normally uses)
    # kept for backwards compatibility, no longer needed for DSpace 6+
-   file { "${src_dir}/build.properties for ${owner}":
+   file { "${src_dir}/build.properties":
      ensure  => file,
  #    cwd     => $src_dir, # run command from this directory
      owner   => $owner,
