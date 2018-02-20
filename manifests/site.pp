@@ -268,7 +268,7 @@ if $admin_email and $admin_passwd and $admin_firstname and $admin_lastname and $
   #Create a new Tomcat instance owned by this user
   
   tomcat::instance { "${owner}" :
-           catalina_home => $catalina_home,
+           catalina_home => $catalina_home/${username},
            source_url   => $source_url,
          }
          
