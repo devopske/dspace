@@ -1,0 +1,22 @@
+# Puppet EPP template for generating a Tomcat systemd service.
+ 
+[Unit]
+Description=Apache Tomcat Web Application Container
+After=syslog.target network.target
+ 
+[Service]
+Type=forking
+Environment=JAVA_HOME=/usr/lib/jvm/default-java/jre 
+Environment=CATALINA_PID=<%= @catalina_base %>/<%= @username %>/temp/tomcat.pid
+Environment=CATALINA_HOME=<%= @catalina_home %>/<%= @username %>
+Environment=CATALINA_BASE=<%= @catalina_base %>/<%= @username %>
+ 
+ExecStart=<%= @catalina_home %>/<%= @username %>/bin/startup.sh
+ExecStop=<%= @catalina_home %>/<%= @username %>/bin/shutdown.sh
+ 
+User=<%= $username %>
+Group=<%= $username %>
+UMask=0007
+ 
+[Install]
+WantedBy=multi-user.target
