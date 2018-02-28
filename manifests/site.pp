@@ -234,8 +234,8 @@ exec { "Delete default build.properties in ${src_dir} for ${owner}":
    # Install DSpace (via Ant)
    exec { "Install DSpace to ${install_dir}":
      # If DSpace installed, this is an update. Otherwise a fresh_install
-     #command   => "if [ -f ${install_dir}/bin/dspace ]; then ant update; else ant fresh_install; fi",
-     command  => "ant fresh_install",
+     command   => "if [ -f ${install_dir}/bin/dspace ]; then ant update; else ant fresh_install; fi",
+     #command  => "ant fresh_install",
      path =>  [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
      provider  => shell,   # Run as a shell command
      cwd       => $ant_installer_path,    # Run command from this directory
